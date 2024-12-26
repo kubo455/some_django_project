@@ -3,10 +3,42 @@
 
 
 {% block body %}
-<div class="container">
-    <div class="row border d-flex justify-content-center">
-        <div class="col">
-            <h1>Login page</h1>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="col-4 p-4 border rounded">
+        <div class="row mb-2">
+            <div class="col d-flex justify-content-center mt-3">
+                <h4>Login</h4>
+            </div>
+        </div>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="row mb-4">
+                <div class="col">
+                    <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col d-flex justify-content-center">
+                    <button class="btn btn-primary" type="submit">Login</button>
+                </div>
+            </div>
+        </form>
+        {% if message %}
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                {{ message }}!
+            </div>
+        </div>
+        {% endif %}
+        <div class="row mb-3">
+            <div class="col d-flex justify-content-center">
+                Don't have account? <a href="{% url 'register' %}" class="ml-2">Sign up</a>
+            </div>
         </div>
     </div>
 </div>
