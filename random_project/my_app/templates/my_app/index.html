@@ -1,0 +1,16 @@
+{% extends "my_app/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row border d-flex justify-content-center">
+        <div class="col">
+            <h1>Hello world</h1>
+        </div>
+        <div class="col">
+            <a href="{% url 'logout' %}">Log out</a>
+        </div>
+    </div>
+</div>
+{% endblock body %}
