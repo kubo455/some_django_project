@@ -1,14 +1,19 @@
+import json
+
 from django.shortcuts import render
 from django.urls import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
+from .forms import BookForm
 
 from .models import User
 
 def index(request):
     # My home page
+    form = BookForm()
+
     if request.user.is_authenticated:
-        return render(request, 'my_app/index.html')
+        return render(request, 'my_app/index.html', {'form': form})
         
     return render(request, 'my_app/login.html')
 
@@ -56,3 +61,18 @@ def register_view(request):
 def logout_view(request):
     logout(request)
     return render(request, "my_app/login.html")
+
+def add_book(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        title = data_json.get('title')
+        author = data_json.get('author')
+        genre = data_json.get('genre')
+        print(title)
+
+        return JsonResponse({"message": "Succesfully added book"}, status=200)
+
+
+    data = []
+
+    return JsonResponse(data, safe=False)
