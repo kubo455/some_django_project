@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import BookForm
+from .models import Book
 
 from .models import User
 
@@ -69,10 +70,8 @@ def add_book(request):
         author = data_json.get('author')
         genre = data_json.get('genre')
         print(title)
+        Book.objects.create(title=title, author=author, genre=genre)
 
-        return JsonResponse({"message": "Succesfully added book"}, status=200)
+        return JsonResponse({"message": "Succesfully added book"})
 
-
-    data = []
-
-    return JsonResponse(data, safe=False)
+    return JsonResponse({'error': 'Invalid request'}, status=400)

@@ -4,46 +4,54 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
 function addBook() {
+    const addBookForm = document.querySelector("#add-book-form").style.display = 'none'; 
+
     document.querySelector("#add-book").addEventListener('click', () => {
-        
-        const addBookForm = document.querySelector('#add-book-form');
-        addBookForm.innerHTML = `<div class="container d-flex justify-content-center">
-                                    <div class="col-4 border rounded p-3">
-                                        <div class="row p-2">
-                                            Title
-                                            <input type="text" id="title" class="form-control">
-                                        </div>
-                                        <div class="row p-2">
-                                            Author
-                                            <input type="text" id="author" class="form-control">
-                                        </div>
-                                        <div class="row p-2">
-                                            Genre
-                                            <input type="text" id="genre" class="form-control">
-                                        </div>
-                                        <div class="row p-2"> 
-                                            <button class="btn btn-primary" id="add-btn" type="submit">Add to books</button>
-                                        </div>
-                                    </div>
-                                </div>`;
+        document.querySelector("#add-book-form").style.display = 'block';        
+        document.querySelector("#add-button").style.display = 'none';
 
+        document.querySelector("#add-book-form").onsubmit = function(e) {
+            e.preventDefault()
 
-        document.querySelector("#add-btn").onclick = function() {
-            
-            console.log(document.querySelector('#title').value)
+            const title = document.querySelector("#title").value;
+            const author = document.querySelector("#author").value;
+            const genre = document.querySelector("#genre").value;
+            console.log(title);
 
             fetch('/add_book', {
                 method: 'POST',
                 body: JSON.stringify({
-                    title: document.querySelector('#title').value,
-                    author: document.querySelector('#author').value,
-                    genre: document.querySelector('#genre').value
-                })
+                    title: title,
+                    author: author,
+                    genre: genre
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
             })
             .then(response => {
                 if (response.ok) {
-                    console.log("SUCCES");
+                    console.log(response);
+                    alert("Book added! ")
                 } else {
                     console.log('ERROR');
                 }

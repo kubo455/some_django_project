@@ -4,16 +4,31 @@
 
 {% block body %}
 <div class="row">
-    <form class="col" id="add-book-form">
+    <div class="col" id="add-button">
         <p>Add books here</p>
         <button class="btn btn-primary" id="add-book" type="submit">Add</button>
+    </div>
+    <form class="col" id="add-book-form">
+        <div class="container d-flex justify-content-center">
+            <div class="col-4 border rounded p-3">
+                <div class="row p-2">
+                    Title
+                    <input type="text" id="title" class="form-control" type="text">
+                </div>
+                <div class="row p-2">
+                    Author
+                    <input type="text" id="author" class="form-control" type="text">
+                </div>
+                <div class="row p-2">
+                    Genre
+                    <input type="text" id="genre" class="form-control" type="text">
+                </div>
+                <div class="row p-2"> 
+                    <button class="btn btn-primary" id="add-btn" type="submit">Add to books</button>
+                </div>
+            </div>
+        </div>
     </form>
-    <!-- <div class="col" id="form-view">
-        Title: {{ form.title }}
-        Author: {{ form.author }}
-        Genre: {{ form.genre }}
-        Publication_date: {{ form.publication_date }}
-    </div> -->
 </div>
 {% endblock body %}
 

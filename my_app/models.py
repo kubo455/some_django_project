@@ -7,9 +7,9 @@ class User(AbstractUser):
 class Book(models.Model):
     title = models.CharField(max_length=64)
     author = models.CharField(max_length=64)
-    publication_date = models.DateField()
-    decription = models.TextField()
-    cover_image = models.ImageField()
+    # publication_date = models.DateField()
+    # decription = models.TextField(default=False)
+    # cover_image = models.ImageField(default=False)
     genre = models.CharField(max_length=64)
 
 class ReadingProgress(models.Model):
