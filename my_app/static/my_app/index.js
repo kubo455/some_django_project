@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    booksView();
     addBook();
 
 });
@@ -61,4 +62,32 @@ function addBook() {
             })
         }                               
     })
+}
+
+function booksView() {
+
+    fetch('/books_view')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        data.forEach(book => {
+            const element = document.createElement('div');
+            element.classList.add('col-3', 'p-3', 'rounded', 'd-flex');
+            // element.classList.add('card');
+            // element.style.width = '15rem';
+
+            element.innerHTML = `<div class="card" style="width: inherit;">
+                                    <img src="${book.image}" class="card-img-top" alt="..." style="width: 120px; height: auto;">
+                                    <div class="card-body">
+                                        ${book.title}<br>
+                                        ${book.author}<br>
+                                        ${book.genre}
+                                    </div>
+                                </div>`
+
+            document.querySelector("#books-view").append(element);
+        })
+    })
+
 }

@@ -9,5 +9,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
 
     # API
-    path('add_book', views.add_book, name='add_book')
+    path('add_book', views.add_book, name='add_book'),
+    path('books_view', views.books_view, name='books_view')
 ]

@@ -75,3 +75,17 @@ def add_book(request):
         return JsonResponse({"message": "Succesfully added book"})
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+def books_view(request):
+    data = []
+    books = Book.objects.all()
+    for book in books:
+        print(book.cover_image)
+        data.append({
+            'title': book.title,
+            'author': book.author,
+            'genre': book.genre,
+            'image':book.cover_image.url
+        })
+
+    return JsonResponse(data, safe=False)
