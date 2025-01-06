@@ -1,6 +1,6 @@
 import json
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
@@ -63,18 +63,43 @@ def logout_view(request):
     logout(request)
     return render(request, "my_app/login.html")
 
+# def add_book(request):
+#     if request.method == 'POST':
+#         # data_json = json.loads(request.body)
+#         # title = data_json.get('title')
+#         # author = data_json.get('author')
+#         # genre = data_json.get('genre')
+#         # image = data_json.get('image')
+#         # title = request.POST.get('title')
+#         # author = request.POST.get('author')
+#         # genre = request.POST.get('genre')
+#         # image = request.FILES.get('image')
+
+#         print(title)
+
+#         # if image:
+#             # with open(f'/random_project/media/{image.name}', 'wb+') as destination:
+#                 # for chunk in image.chunks():
+#                     # destination.write(chunk)
+
+#         # Book.objects.create(title=title, author=author, genre=genre, cover_image=image)
+
+#         return JsonResponse({"message": "Succesfully added book"})
+
+#     return JsonResponse({'error': 'Invalid request'}, status=400)
+
 def add_book(request):
     if request.method == 'POST':
-        data_json = json.loads(request.body)
-        title = data_json.get('title')
-        author = data_json.get('author')
-        genre = data_json.get('genre')
-        print(title)
-        Book.objects.create(title=title, author=author, genre=genre)
 
-        return JsonResponse({"message": "Succesfully added book"})
+        form = BookForm(request.POST, request.FILES)
+        if form.is_valid():
+            # title = form.cleaned_data["title"]
+            form.save()
+            return redirect('/')
+    else:
+        form = BookForm()
 
-    return JsonResponse({'error': 'Invalid request'}, status=400)
+    return render(request, 'my_app/index.html', {"form": form})
 
 def books_view(request):
     data = []

@@ -9,7 +9,7 @@ class Book(models.Model):
     author = models.CharField(max_length=64)
     # publication_date = models.DateField()
     # decription = models.TextField(default=False)
-    cover_image = models.ImageField(default=False, blank=True)
+    cover_image = models.ImageField(default=False, blank=True, upload_to="media/")
     genre = models.CharField(max_length=64)
 
     def __str__(self):
