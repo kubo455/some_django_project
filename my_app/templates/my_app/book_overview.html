@@ -1,0 +1,15 @@
+{% extends "my_app/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+<div class="row">
+    <div class="col" id="book-view">
+
+    </div>
+</div>
+{% endblock body %}
+
+{% block script %}
+    <script src="{% static 'my_app/book_view.js' %}"></script>
+{% endblock %}

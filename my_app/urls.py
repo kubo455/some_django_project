@@ -7,8 +7,9 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('register/', views.register_view, name='register'), 
     path('logout/', views.logout_view, name='logout'),
+    path('book_overview', views.book_overview, name='book_overview'),
 
     # API
     path('add_book', views.add_book, name='add_book'),
-    path('books_view', views.books_view, name='books_view')
+    path('books_view', views.books_view, name='books_view'),
 ]

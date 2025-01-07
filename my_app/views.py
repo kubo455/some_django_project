@@ -90,10 +90,9 @@ def logout_view(request):
 
 def add_book(request):
     if request.method == 'POST':
-
+        # Chesk if the form is valid and save the data from the user
         form = BookForm(request.POST, request.FILES)
         if form.is_valid():
-            # title = form.cleaned_data["title"]
             form.save()
             return redirect('/')
     else:
@@ -104,6 +103,7 @@ def add_book(request):
 def books_view(request):
     data = []
     books = Book.objects.all()
+    # Get the books data a return Json response
     for book in books:
         print(book.cover_image)
         data.append({
@@ -112,5 +112,23 @@ def books_view(request):
             'genre': book.genre,
             'image':book.cover_image.url
         })
+
+    return JsonResponse(data, safe=False)
+
+def book_overview(request, title):
+
+
+    return redirect('book_overview')
+
+def book_view(request, title):
+    data = []
+    book = Book.objects.get(title)
+    # Get the book data from DB
+    data.append({
+        'title': book.title,
+        'author': book.author,
+        'genre': book.genre,
+        'image': book.cover_image.url
+    })
 
     return JsonResponse(data, safe=False)
