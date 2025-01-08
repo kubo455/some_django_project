@@ -105,8 +105,8 @@ def books_view(request):
     books = Book.objects.all()
     # Get the books data a return Json response
     for book in books:
-        print(book.cover_image)
         data.append({
+            'book_id': book.pk,
             'title': book.title,
             'author': book.author,
             'genre': book.genre,
@@ -115,14 +115,13 @@ def books_view(request):
 
     return JsonResponse(data, safe=False)
 
-def book_overview(request, title):
+def book_overview(request, id):
 
+    return render(request, 'my_app/book_overview.html', {"book_id":id})
 
-    return redirect('book_overview')
-
-def book_view(request, title):
+def book_view(request, id):
     data = []
-    book = Book.objects.get(title)
+    book = Book.objects.get(id)
     # Get the book data from DB
     data.append({
         'title': book.title,

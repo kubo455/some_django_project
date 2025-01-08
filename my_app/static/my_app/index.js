@@ -114,6 +114,7 @@ function booksView() {
                                             <div class="card-body">
                                                 <h5 class="card-title">${book.title}</h5>
                                                 <p class="card-text">${book.author}</p>
+                                                <a href="/book_overview/${book.book_id}" class="card-text">${book.book_id}</a>
                                                 <p class="card-text"><small class="text-muted">${book.genre}</small></p>
                                             </div>
                                         </div>
@@ -128,6 +129,10 @@ function booksView() {
                                 //         ${book.genre}
                                 //     </div>
                                 // </div>`
+
+            // element.addEventListener('click', function() {
+                
+            // }) 
 
             document.querySelector("#books").append(element);
         })

@@ -6,10 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function bookView() {
 
-    fetch(`/book_view/${book_id}`)
+    const bookId = book_id;
+
+    fetch(`/book_view/${bookId}`)
     .then(respone => respone.json())
     .then(data => {
         console.log(data)
     })
-
+    .catch(error => {
+        console.error('Error', error);
+    })
 }
