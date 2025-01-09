@@ -121,7 +121,7 @@ def book_overview(request, id):
 
 def book_view(request, id):
     data = []
-    book = Book.objects.get(id)
+    book = Book.objects.get(pk=id)
     # Get the book data from DB
     data.append({
         'title': book.title,
