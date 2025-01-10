@@ -114,13 +114,14 @@ function booksView() {
                                             <div class="card-body">
                                                 <h5 class="card-title">${book.title}</h5>
                                                 <p class="card-text">${book.author}</p>
-                                                <a href="/book_overview/${book.book_id}" class="card-text">${book.book_id}</a>
                                                 <p class="card-text"><small class="text-muted">${book.genre}</small></p>
                                             </div>
                                         </div>
                                     </div>
-                                </div>`
+                                </div>`;
 
+
+                                // <a href="/book_overview/${book.book_id}" class="card-text">${book.book_id}</a>
                                 // `<div class="card" style="width: inherit;">
                                 //     <img src="${book.image}" class="card-img-top" alt="..." style="width: 120px; height: auto;">
                                 //     <div class="card-body">
@@ -133,6 +134,13 @@ function booksView() {
             // element.addEventListener('click', function() {
                 
             // }) 
+
+            element.addEventListener('click', function() {
+                // This looks like better solution
+                window.location.href = `book_overview/${book.book_id}`;
+                // Here can't go back to home page using back button
+                // window.location.replace(`book_overview/${book.book_id}`);
+            })
 
             document.querySelector("#books").append(element);
         })
