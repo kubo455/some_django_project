@@ -131,3 +131,9 @@ def book_view(request, id):
     })
 
     return JsonResponse(data, safe=False)
+
+
+def search_book(request):
+    
+
+    return render(request, 'my_app/search_book.html')

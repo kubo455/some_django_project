@@ -12,5 +12,6 @@ urlpatterns = [
     # API
     path('add_book', views.add_book, name='add_book'),
     path('books_view', views.books_view, name='books_view'),
-    path('book_view/<int:id>', views.book_view, name='book_view')
+    path('book_view/<int:id>', views.book_view, name='book_view'),
+    path('search_book', views.search_book, name='search_book')
 ]
