@@ -134,6 +134,10 @@ def book_view(request, id):
 
 
 def search_book(request):
+    if request.method == 'PUT':
+
+
+        return JsonResponse({'message': 'Added to books!!'}, status=200)
     
 
     return render(request, 'my_app/search_book.html')
