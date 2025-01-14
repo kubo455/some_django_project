@@ -135,7 +135,16 @@ def book_view(request, id):
 
 def search_book(request):
     if request.method == 'PUT':
+        data = json.loads(request.body)
+        title = data.get('title')
+        author = data.get('author')
+        pages = data.get('pages')
+        cover_image = data.get('cover_image')
 
+        add_to_library = Book.objects.create(title=title, author=author, genre='Have to add', pages=int(pages))
+
+
+        print(title, author, pages, cover_image)
 
         return JsonResponse({'message': 'Added to books!!'}, status=200)
     

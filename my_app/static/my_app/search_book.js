@@ -51,7 +51,7 @@ function searchBook() {
                 document.querySelector("#book-view").append(element);
 
                 // Need to think about it first
-                const author = book.author_name;
+                const author = book.author_name[0];
                 const title = book.title;
                 const pages = book.number_of_pages_median;
                 const cover_image = book.cover_i;
@@ -60,20 +60,22 @@ function searchBook() {
 
                     fetch('search_book', {
                         method: 'PUT',
+                        headers: {
+                            'Content-type': 'application/json',
+                            'X-CSRFToken': csrftoken
+                        },
                         body: JSON.stringify({
                             title: title,
                             author: author,
                             pages: pages,
                             cover_image: cover_image
                         }),
-                        headers: {
-                            'Content-type': 'application/json',
-                            'X-CSFRToken': csrftoken
-                        }
+                        mode: 'same-origin'
                     })
-                    .then(() => {
-                        console.log('Added too library');
-                    });
+                    // Think of changig code!!!
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error:', error));
 
                 })
 

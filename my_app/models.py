@@ -11,6 +11,7 @@ class Book(models.Model):
     # decription = models.TextField(default=False)
     cover_image = models.ImageField(default=False, blank=True, upload_to="media/")
     genre = models.CharField(max_length=64)
+    pages = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.title
