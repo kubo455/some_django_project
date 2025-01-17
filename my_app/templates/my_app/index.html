@@ -4,13 +4,13 @@
 
 {% block body %}
 <div class="row">
-    <div class="col border" id="books-view">
+    <div class="col" id="books-view">
         <div class="row" id="books">
 
         </div>
     </div>
 
-    <div class="col-12 border" id="add-button">
+    <div class="col-12" id="add-button">
         <p>Add books here</p>
         <button class="btn btn-primary" id="add-book" type="submit">Add</button>
     </div>
@@ -19,22 +19,6 @@
         {% csrf_token %}
         <div class="container d-flex justify-content-center">
             <div class="col-4 border rounded p-3">
-                <!-- <div class="row p-2">
-                    Title
-                    <input type="text" id="title" class="form-control">
-                </div>
-                <div class="row p-2">
-                    Author
-                    <input type="text" id="author" class="form-control">
-                </div>
-                <div class="row p-2">
-                    Genre
-                    <input type="text" id="genre" class="form-control">
-                </div>
-                <div class="row p-2">
-                    Cover Image
-                    <input type="file" id="image" accept="image/*" class="form-control">
-                </div> -->
                 {{ form.as_p }}
                 <button class="btn btn-primary mt-3" id="add-btn" type="submit">Add to books</button>
             </div>

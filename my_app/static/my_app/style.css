@@ -1,8 +1,44 @@
+:root {
+    --bc-color: #0c1821;
+    --rich-black2: #11202d;
+    --oxford-blue: #1b2a41;
+    --charcoal: #324a5f;
+    --lavender: #ccc9dc;
+}
+
 body {
-    background-color: white;
+    background-color: var(--bc-color);
+    color: var(--lavender);
 }
 
 #card-img-top {
     width: 125px;
     height: auto;
+}
+
+.border {
+    border-color: var(--charcoal) !important;
+}
+
+.card {
+    border-color: var(--charcoal);
+    background-color: var(--bc-color); 
+}
+
+.btn-primary {
+    background-color: var(--oxford-blue);
+    border-color: var(--charcoal);
+}
+
+.navbar {
+    background-color: var(--bc-color);
+    border-color: var(--charcoal) !important;
+}
+
+.navbar-brand {
+    color: lavender;
+}
+
+a {
+    color: lavender;
 }

@@ -112,10 +112,10 @@ function booksView() {
                 source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`
             }
 
-            element.innerHTML = `<div class="card mb-3" style="width: inherit;">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img src="${source}" class="img rounded-start" alt="..." style="height: 165px;">
+            element.innerHTML = `<div class="card mb-3" style="width: inherit; height: 167px;">
+                                    <div class="row g-0" style="height: 100%;">
+                                        <div class="col-md-4" style="height: 100%;">
+                                            <img src="${source}" class="img rounded" alt="..." style="height: 100%; object-fit: cover;">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
