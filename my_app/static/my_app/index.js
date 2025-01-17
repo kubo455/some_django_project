@@ -105,10 +105,17 @@ function booksView() {
             // element.classList.add('card');
             // element.style.width = '15rem';
 
+            console.log(book);
+            var source = book.image;
+
+            if (book.image == '...') {
+                source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`
+            }
+
             element.innerHTML = `<div class="card mb-3" style="width: inherit;">
                                     <div class="row g-0">
                                         <div class="col-md-4">
-                                            <img src="${book.image}" class="img rounded-start" alt="..." style="height: 165px;">
+                                            <img src="${source}" class="img rounded-start" alt="..." style="height: 165px;">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">

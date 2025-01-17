@@ -14,11 +14,18 @@ function bookView() {
         console.log(data)
 
         data.forEach(book => {
+            console.log(book);
+            var source = book.image;
+
+            if (book.image == '...') {
+                source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`
+            }
+    
             const element = document.createElement('div');
             element.classList.add('col', 'p-3');
             element.innerHTML = `<div class="row mb-5 border">
                                     <div class="col-3">
-                                        <img src="${book.image}" class="img rounded border" alt="..." style="height: 250px;">
+                                        <img src="${source}" class="img rounded border" alt="..." style="height: 250px;">
                                     </div>
                                     <div class="col-3">
                                         <h4>${book.title}</h4>

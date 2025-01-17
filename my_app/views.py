@@ -105,12 +105,18 @@ def books_view(request):
     books = Book.objects.all()
     # Get the books data a return Json response
     for book in books:
+        if not book.cover_image:
+            image = '...'
+        else:
+            image = book.cover_image.url
+
         data.append({
             'book_id': book.pk,
             'title': book.title,
             'author': book.author,
             'genre': book.genre,
-            'image':book.cover_image.url
+            'image': image,
+            'open_lib_cover': book.open_lib_cover
         })
 
     return JsonResponse(data, safe=False)
@@ -123,11 +129,18 @@ def book_view(request, id):
     data = []
     book = Book.objects.get(pk=id)
     # Get the book data from DB
+
+    if not book.cover_image:
+        image = '...'
+    else:
+        image = book.cover_image.url
+
     data.append({
         'title': book.title,
         'author': book.author,
         'genre': book.genre,
-        'image': book.cover_image.url
+        'image': image,
+        'open_lib_cover': book.open_lib_cover
     })
 
     return JsonResponse(data, safe=False)
@@ -141,8 +154,8 @@ def search_book(request):
         pages = data.get('pages')
         cover_image = data.get('cover_image')
 
-        add_to_library = Book.objects.create(title=title, author=author, genre='Have to add', pages=int(pages))
-
+        add_to_library = Book.objects.create(title=title, author=author, genre='Have to add', pages=int(pages), open_lib_cover=cover_image)
+        add_to_library.save()
 
         print(title, author, pages, cover_image)
 
