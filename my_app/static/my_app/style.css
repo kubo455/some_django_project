@@ -1,13 +1,13 @@
 :root {
     --bc-color: #0c1821;
-    --rich-black2: #11202d;
+    --bc-color2: #11202d;
     --oxford-blue: #1b2a41;
     --charcoal: #324a5f;
     --lavender: #ccc9dc;
 }
 
 body {
-    background-color: var(--bc-color);
+    background-color: var(--bc-color2);
     color: var(--lavender);
 }
 
@@ -22,16 +22,30 @@ body {
 
 .card {
     border-color: var(--charcoal);
-    background-color: var(--bc-color); 
+    background-color: var(--oxford-blue); 
+    /* border: none; */
+    transition: background-color 0.3s ease;
+}
+
+.card:hover {
+    background-color: var(--bc-color);
 }
 
 .btn-primary {
     background-color: var(--oxford-blue);
+    /* border-color: var(--charcoal); */
+    border: none;
+    color: var(--lavender);
+}
+
+.btn-primary:hover {
+    background-color: var(--bc-color);
     border-color: var(--charcoal);
+    color: var(--lavender);
 }
 
 .navbar {
-    background-color: var(--bc-color);
+    background-color: var(--bc-color2);
     border-color: var(--charcoal) !important;
 }
 

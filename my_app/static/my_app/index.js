@@ -119,7 +119,7 @@ function booksView() {
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
-                                                <h5 class="card-title">${book.title}</h5>
+                                                <h6 class="card-title">${book.title}</h6>
                                                 <p class="card-text">${book.author}</p>
                                                 <p class="card-text"><small class="text-muted">${book.genre}</small></p>
                                             </div>
