@@ -115,12 +115,12 @@ function booksView() {
             element.innerHTML = `<div class="card mb-3" style="width: inherit; height: 167px;">
                                     <div class="row g-0" style="height: 100%;">
                                         <div class="col-md-4" style="height: 100%;">
-                                            <img src="${source}" class="img rounded" alt="..." style="height: 100%; object-fit: cover;">
+                                            <img src="${source}" class="img rounded" alt="..." style="height: 100%; width:100px ;object-fit: cover;">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
                                                 <h6 class="card-title">${book.title}</h6>
-                                                <p class="card-text">${book.author}</p>
+                                                <p class="card-text" style="font-size: 15px;">${book.author}</p>
                                                 <p class="card-text"><small class="text-muted">${book.genre}</small></p>
                                             </div>
                                         </div>

@@ -9,6 +9,7 @@
 body {
     background-color: var(--bc-color2);
     color: var(--lavender);
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #card-img-top {
@@ -16,14 +17,10 @@ body {
     height: auto;
 }
 
-.border {
-    border-color: var(--charcoal) !important;
-}
-
 .card {
-    border-color: var(--charcoal);
+    /* border-color: var(--charcoal); */
     background-color: var(--oxford-blue); 
-    /* border: none; */
+    border: none;
     transition: background-color 0.3s ease;
 }
 
@@ -47,6 +44,8 @@ body {
 .navbar {
     background-color: var(--bc-color2);
     border-color: var(--charcoal) !important;
+    border-width: 80% !important;
+    color: lavender;
 }
 
 .navbar-brand {
@@ -55,4 +54,44 @@ body {
 
 a {
     color: lavender;
+}
+
+.navbar-toggler {
+    border-color: lavender !important;
+    color: lavender;
+}
+
+.custom-border {
+    border-bottom: 1px solid var(--charcoal);
+}
+
+/* .input-group-prepend {
+    background-color: var(--oxford-blue) !important;
+    border: none;
+    color: var(--bc-color2);
+} */
+
+.form-control {
+    background-color: var(--bc-color);
+    /* border-color: var(--charcoal); */
+    border: 2px solid var(--charcoal);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--bc-color);
+    box-shadow: 0 0 2px var(--bc-color);
+    background-color: var(--bc-color);
+}
+
+.input-group-text {
+    background-color: var(--oxford-blue);
+    border-color: var(--charcoal);
+}
+
+#search-view {
+    border-bottom: 1px solid var(--charcoal);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }

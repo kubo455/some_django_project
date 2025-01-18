@@ -7,27 +7,32 @@
         <title>{% block title %}My Project{% endblock title %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'my_app/style.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         {% block script %}
         {% endblock script %}
     </head>
 
     <body>
-        <nav class="navbar border-bottom border-body">
-            <div class="container">
-                <a class="navbar-brand mb-0 h1" href="#">My books</a>
-                <!-- <div class="navbar-nav">
-                    <a class="nav-link" href="{% url 'index' %}">Home</a>
-                    <a class="nav-link" href="{% url 'search_book' %}">Search book</a>
-                </div>               -->
-            </div>
-        </nav>
+        <div class="container vh-100">
+            
+            <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom pl-0">
+                <div class="container-fluid p-0">
+                    <a class="navbar-brand" href="#" style="font-weight: bold;">My books</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="bi bi-list"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-link active" href="{% url 'index' %}">Home</a>
+                            <a class="nav-link" href="{% url 'search_book' %}">Search Books</a>
+                        </div>                  
+                    </div>
+                </div>
+            </nav>
 
-        <div class="container vh-100 mt-3">
-            <div class="row">
-                <a class="nav-link" href="{% url 'index' %}">Home</a>
-                <a class="nav-link" href="{% url 'search_book' %}">Search book</a>
-            </div>
             {% block body %}
             {% endblock body %}
         </div>  
@@ -35,4 +40,14 @@
     </body>
 </html>
 
-<!-- <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark"> -->
+            <!-- <nav class="navbar border-bottom border-body pl-0">
+                <div class="container-fluid d-flex justify-content-between">
+                    <a class="navbar-brand mb-0 h1" href="#" style="font-weight: bold;">My books</a>
+                    <div class="navbar-nav mr-auto">
+                        <div class="row px-3">
+                            <a href="{% url 'index' %}"><button class="btn btn-primary">Home</button></a>
+                            <a href="{% url 'search_book' %}"><button class="btn btn-primary ml-3">Search Book</button></a>
+                        </div>
+                    </div>
+                </div>
+            </nav> -->

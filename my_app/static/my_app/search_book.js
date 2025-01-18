@@ -34,7 +34,8 @@ function searchBook() {
 
             data.docs.forEach(book => {
                 const element = document.createElement('div');
-                element.classList.add('row', 'border-bottom', 'p-3');
+                element.classList.add('row');
+                element.id = 'search-view';
                 
                 element.innerHTML = `<div>
                                         <img src="https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg" id="cover-image-${n}" class="img rounded-start" alt="..." style="width: 60px; height: 90px;">
