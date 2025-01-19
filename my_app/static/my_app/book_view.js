@@ -11,7 +11,7 @@ function bookView() {
     fetch(`/book_view/${bookId}`)
     .then(respone => respone.json())
     .then(data => {
-        console.log(data)
+        // console.log(data)
 
         data.forEach(book => {
             console.log(book);

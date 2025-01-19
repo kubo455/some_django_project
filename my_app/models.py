@@ -13,6 +13,7 @@ class Book(models.Model):
     open_lib_cover = models.IntegerField(blank=True, null=True)
     genre = models.CharField(max_length=64)
     pages = models.IntegerField(blank=True, null=True)
+    edition_key = models.CharField(blank=True, null=True, max_length=64)
 
     def __str__(self):
         return self.title

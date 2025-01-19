@@ -56,6 +56,8 @@ function searchBook() {
                 const title = book.title;
                 const pages = book.number_of_pages_median;
                 const cover_image = book.cover_i;
+                const edition_key = book.cover_edition_key;
+                console.log(book.cover_edition_key);
 
                 document.querySelector(`#add-to-library-${n}`).addEventListener('click', function() {
 
