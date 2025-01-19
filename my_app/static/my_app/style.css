@@ -95,3 +95,11 @@ a {
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
+
+#cover-image-view {
+    border: 1px solid var(--charcoal);
+}
+
+#book-info {
+    border-bottom: 1px solid var(--charcoal);
+}
