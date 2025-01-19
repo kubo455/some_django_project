@@ -116,7 +116,8 @@ def books_view(request):
             'author': book.author,
             'genre': book.genre,
             'image': image,
-            'open_lib_cover': book.open_lib_cover
+            'open_lib_cover': book.open_lib_cover,
+            'key': book.edition_key
         })
 
     return JsonResponse(data, safe=False)
@@ -140,7 +141,9 @@ def book_view(request, id):
         'author': book.author,
         'genre': book.genre,
         'image': image,
-        'open_lib_cover': book.open_lib_cover
+        'pages': book.pages,
+        'open_lib_cover': book.open_lib_cover,
+        'key': book.edition_key
     })
 
     return JsonResponse(data, safe=False)
@@ -153,11 +156,18 @@ def search_book(request):
         author = data.get('author')
         pages = data.get('pages')
         cover_image = data.get('cover_image')
+        edition_key = data.get('edition_key')
 
-        add_to_library = Book.objects.create(title=title, author=author, genre='Have to add', pages=int(pages), open_lib_cover=cover_image)
+        add_to_library = Book.objects.create(
+                title=title, 
+                author=author, 
+                genre='Have to add', 
+                pages=int(pages), 
+                open_lib_cover=cover_image, 
+                edition_key=edition_key
+            )
+            
         add_to_library.save()
-
-        print(title, author, pages, cover_image)
 
         return JsonResponse({'message': 'Added to books!!'}, status=200)
     

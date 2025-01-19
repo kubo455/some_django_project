@@ -11,7 +11,6 @@ function bookView() {
     fetch(`/book_view/${bookId}`)
     .then(respone => respone.json())
     .then(data => {
-        // console.log(data)
 
         data.forEach(book => {
             console.log(book);
@@ -33,7 +32,7 @@ function bookView() {
                                         <p>${book.genre}</p>
                                     </div>
                                     <div class="col">
-                                        <p>Pages: !!!!!</p>
+                                        <p>Pages: ${book.pages}</p>
                                         <p>Your progress: !!!!!</p>
                                     </div>
                                 </div>
@@ -41,10 +40,24 @@ function bookView() {
                                     <h5 class="m-2">Book info</h5>
                                 </div>
                                 <div class="row m-0">
-                                    <p class="m-2">SHOULD FIRST SCRAPE DATA AND ADD INFO HERE</p>
+                                    <p class="m-2">Description:</p>
+                                    <p class="m-2" id="book-description"></p>
                                 </div>`;
 
             document.querySelector("#book-view").append(element);
+
+            // Fetch data from open open library and get decription
+            // !! THIS IS NOT WORKING
+            fetch(`https://openlibrary.org/books/${data[0].key}.json`)
+            .then(respone => respone.json())
+            .then(data => {
+                const description = data.description;
+                console.log(data.description);
+
+                document.querySelector("#book-description").append(description);
+            })
+
+
         })
 
     })

@@ -71,7 +71,8 @@ function searchBook() {
                             title: title,
                             author: author,
                             pages: pages,
-                            cover_image: cover_image
+                            cover_image: cover_image,
+                            edition_key: edition_key
                         }),
                         mode: 'same-origin'
                     })
