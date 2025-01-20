@@ -79,7 +79,9 @@ function searchBook() {
                     // Think of changig code!!!
                     .then(response => response.json())
                     .then(data => console.log(data))
-                    .catch(error => console.error('Error:', error));
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
 
                 })
 
@@ -89,7 +91,7 @@ function searchBook() {
             })
         })
         .catch((error) => {
-            console.error('Error:', error)
+            console.error('Error:', error);
         });
 
     }
