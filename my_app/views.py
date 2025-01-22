@@ -170,8 +170,8 @@ def search_book(request):
         add_to_library.save()
 
         # Should repair this line !!!
-        return render(request, 'my_app/index.html')
-        # return JsonResponse({'message': 'Added to books!!'}, status=200)
+        # return render(request, 'my_app/index.html')
+        return JsonResponse({'message': 'Added to books!!'}, status=200)
     
 
     return render(request, 'my_app/search_book.html')

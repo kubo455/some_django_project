@@ -25,6 +25,7 @@ function searchBook() {
     
     document.querySelector('#search-book').onclick = function() {
 
+        document.querySelector("#book-view").innerHTML = '';
         var n = 0;
 
         fetch(`https://openlibrary.org/search.json?q=${document.querySelector('#title').value}&limit=10`)
@@ -72,13 +73,20 @@ function searchBook() {
                             author: author,
                             pages: pages,
                             cover_image: cover_image,
-                            edition_key: edition_key
+                            edition_key: edition_key,
                         }),
                         mode: 'same-origin'
                     })
                     // Think of changig code!!!
-                    .then(response => response.json())
-                    .then(data => console.log(data))
+                    .then(response => {
+                        if (!response.ok) { 
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json(); // Proceed only if the response is OK
+                    })
+                    // .then(data => {
+                        // console.log('Success:', data)
+                    // })
                     .catch(error => {
                         console.error('Error:', error);
                     });
