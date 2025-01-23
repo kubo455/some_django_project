@@ -36,6 +36,9 @@ function bookView() {
                                         <p>Your progress: !!!!!</p>
                                     </div>
                                 </div>
+                                <div class="row m-0" id="progress">
+                                    <button class="btn btn-primary">Add to progress</button>
+                                </div>
                                 <div class="row m-0" id="book-info">
                                     <h5 class="m-2">Book info</h5>
                                 </div>

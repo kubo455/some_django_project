@@ -14,12 +14,19 @@ class Book(models.Model):
     genre = models.CharField(max_length=64)
     pages = models.IntegerField(blank=True, null=True)
     edition_key = models.CharField(blank=True, null=True, max_length=64)
+    currently_reading = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
 
 class ReadingProgress(models.Model):
-    pass
+    book_title = models.ForeignKey(Book, on_delete=models.CASCADE, blank=True, null=True)
+    pages_total = models.IntegerField(blank=True, null=True)
+    progress = models.IntegerField(blank=True, null=True)
+    book_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.book_title
 
 class Review(models.Model):
     pass

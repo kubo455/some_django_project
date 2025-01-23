@@ -28,6 +28,8 @@ function searchBook() {
         document.querySelector("#book-view").innerHTML = '';
         var n = 0;
 
+        // USE THIS ONE TO LOOK FOR BOOK INFO !!!!!!!!!!!!!!!!!!!!!
+
         fetch(`https://openlibrary.org/search.json?q=${document.querySelector('#title').value}&limit=10`)
         .then(response => response.json())
         .then(data => {
@@ -58,6 +60,7 @@ function searchBook() {
                 const pages = book.number_of_pages_median;
                 const cover_image = book.cover_i;
                 const edition_key = book.cover_edition_key;
+                // const edition_key = book.edition_key[0];
                 console.log(book.cover_edition_key);
 
                 document.querySelector(`#add-to-library-${n}`).addEventListener('click', function() {
@@ -106,12 +109,8 @@ function searchBook() {
 
 }
 
-function addToLibrary() {
+function bookInfo() {
 
-    document.querySelector("#add-to-library").addEventListener('click', function() {
-
-        console.log('ADDD!!!');
-
-    })
+    
 
 }
