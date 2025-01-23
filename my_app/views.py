@@ -143,10 +143,35 @@ def book_view(request, id):
         'image': image,
         'pages': book.pages,
         'open_lib_cover': book.open_lib_cover,
-        'key': book.edition_key
+        'key': book.edition_key,
+        'reading': book.currently_reading
     })
 
+    # if request.method == 'PUT':
+    #     data = json.loads(request.body)
+    #     btn_value = data.get('btn_value')
+    #     print(btn_value)
+
+    #     return JsonResponse({'message': 'Added to currently reading!!'}, status=200)
+
     return JsonResponse(data, safe=False)
+
+def reading(request, id):
+
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        btn_value = data.get('btn_value')
+        print(btn_value)
+
+        book = Book.objects.get(pk=id)
+        if btn_value == 'false':
+            book.currently_reading = True
+        else:
+            book.currently_reading = False
+        # book.currently_reading = bool(btn_value)
+        book.save()
+        
+        return JsonResponse({'message': 'Added to currently reading!!'}, status=200)
 
 
 def search_book(request):

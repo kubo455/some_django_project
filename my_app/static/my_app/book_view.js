@@ -4,6 +4,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 })
 
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
 function bookView() {
 
     const bookId =  document.querySelector("#book-id").value;
@@ -18,6 +35,14 @@ function bookView() {
 
             if (book.image == '...') {
                 source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`
+            }
+
+            var buttonValue = '';
+
+            if (book.reading === false) {
+                buttonValue = 'Add to currently reading';
+            } else {
+                buttonValue = 'Remove from currently reading';
             }
     
             const element = document.createElement('div');
@@ -37,7 +62,7 @@ function bookView() {
                                     </div>
                                 </div>
                                 <div class="row m-0" id="progress">
-                                    <button class="btn btn-primary">Add to progress</button>
+                                    <button class="btn btn-primary" value="${book.reading}" id="add-btn">${buttonValue}</button>
                                 </div>
                                 <div class="row m-0" id="book-info">
                                     <h5 class="m-2">Book info</h5>
@@ -60,6 +85,29 @@ function bookView() {
                 document.querySelector("#book-description").append(description);
             })
 
+            element.querySelector('button').onclick = function() {
+
+                fetch(`/book_view/${bookId}/reading`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: JSON.stringify({
+                        btn_value: element.querySelector('button').value
+                    })
+                })
+                .then(respone => {
+                    if (!respone.ok) {
+                        throw new Error(`Http error! Status: ${respone.status}`);
+                    }
+                    return respone.json();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+            }
 
         })
 
