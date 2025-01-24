@@ -23,6 +23,7 @@ const csrftoken = getCookie('csrftoken');
 
 function bookView() {
 
+    document.querySelector("#book-view").innerHTML = '';
     const bookId =  document.querySelector("#book-id").value;
 
     fetch(`/book_view/${bookId}`)
@@ -59,10 +60,10 @@ function bookView() {
                                     <div class="col">
                                         <p>Pages: ${book.pages}</p>
                                         <p>Your progress: !!!!!</p>
+                                        <div class="row m-0 py-3" id="progress">
+                                            <button class="btn btn-primary" value="${book.reading}" id="add-btn">${buttonValue}</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row m-0" id="progress">
-                                    <button class="btn btn-primary" value="${book.reading}" id="add-btn">${buttonValue}</button>
                                 </div>
                                 <div class="row m-0" id="book-info">
                                     <h5 class="m-2">Book info</h5>
@@ -102,6 +103,9 @@ function bookView() {
                         throw new Error(`Http error! Status: ${respone.status}`);
                     }
                     return respone.json();
+                })
+                .then(() => {
+                    bookView();
                 })
                 .catch(error => {
                     console.error('Error:', error);
