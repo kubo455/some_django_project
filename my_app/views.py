@@ -101,8 +101,10 @@ def add_book(request):
     return render(request, 'my_app/index.html', {"form": form})
 
 def books_view(request):
-    data = []
+    # data = []
     books = Book.objects.all()
+
+    all_books = []
     # Get the books data a return Json response
     for book in books:
         if not book.cover_image:
@@ -110,15 +112,41 @@ def books_view(request):
         else:
             image = book.cover_image.url
 
-        data.append({
+        all_books.append({
             'book_id': book.pk,
             'title': book.title,
             'author': book.author,
             'genre': book.genre,
             'image': image,
             'open_lib_cover': book.open_lib_cover,
-            'key': book.edition_key
+            'key': book.edition_key,
+            'currently_reading': book.currently_reading
         })
+
+    current_books = []
+    currently_reading = Book.objects.filter(currently_reading=True)
+    for book in currently_reading:
+        if not book.cover_image:
+            image = '...'
+        else:
+            image = book.cover_image.url
+        
+        current_books.append({
+            'book_id': book.pk,
+            'title': book.title,
+            'author': book.author,
+            'genre': book.genre,
+            'image': image,
+            'open_lib_cover': book.open_lib_cover,
+            'key': book.edition_key,
+            'currently_reading': book.currently_reading
+        })
+
+
+    data = {
+        'all_books': all_books,
+        'current_books': current_books
+    }
 
     return JsonResponse(data, safe=False)
 

@@ -97,15 +97,17 @@ function booksView() {
     fetch('/books_view')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+        const allBooks = data.all_books;
+        const currentBooks = data.current_books;
+        
+        console.log(allBooks);
 
-        data.forEach(book => {
+        allBooks.forEach(book => {
             const element = document.createElement('div');
             element.classList.add('col-3', 'p-3', 'rounded', 'd-flex');
             // element.classList.add('card');
             // element.style.width = '15rem';
 
-            console.log(book);
             var source = book.image;
 
             if (book.image == '...') {
@@ -136,11 +138,7 @@ function booksView() {
                                 //         ${book.author}<br>
                                 //         ${book.genre}
                                 //     </div>
-                                // </div>`
-
-            // element.addEventListener('click', function() {
-                
-            // }) 
+                                // </div>` 
 
             element.addEventListener('click', function() {
                 // This looks like better solution
@@ -151,6 +149,48 @@ function booksView() {
 
             document.querySelector("#books").append(element);
         })
+
+        currentBooks.forEach(book => {
+            const element = document.createElement('div');
+            element.classList.add('col-3', 'p-3', 'rounded', 'd-flex');
+
+            var source = book.image;
+
+            if (book.image == '...') {
+                source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`
+            }
+
+            element.innerHTML = `<div class="card mb-3" style="width: inherit; height: 167px;">
+                                    <div class="row g-0" style="height: 100%;">
+                                        <div class="col-md-4" style="height: 100%;">
+                                            <img src="${source}" class="img rounded" alt="..." style="height: 100%; width:100px ;object-fit: cover;">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h6 class="card-title">${book.title}</h6>
+                                                <p class="card-text" style="font-size: 15px;">${book.author}</p>
+                                                <p class="card-text"><small class="text-muted">${book.genre}</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
+
+            element.addEventListener('click', function() {
+                // This looks like better solution
+                window.location.href = `book_overview/${book.book_id}`;
+                // Here can't go back to home page using back button
+                // window.location.replace(`book_overview/${book.book_id}`);
+            })
+
+            document.querySelector("#current-books").append(element);
+
+        })
     })
+
+}
+
+function currentBooksView() {
+
+    
 
 }
