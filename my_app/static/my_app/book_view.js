@@ -65,6 +65,9 @@ function bookView() {
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row ml-1" id="track-progress">
+                                    <button class="btn btn-primary mb-3" id="progress-btn">Track progress</button>
+                                </div>
                                 <div class="row m-0" id="book-info">
                                     <h5 class="m-2">Book info</h5>
                                 </div>
@@ -86,6 +89,7 @@ function bookView() {
                 document.querySelector("#book-description").append(description);
             })
 
+            // Add book to currently readings.
             element.querySelector('button').onclick = function() {
 
                 fetch(`/book_view/${bookId}/reading`, {
@@ -111,6 +115,20 @@ function bookView() {
                     console.error('Error:', error);
                 });
 
+            }
+
+            // Track progress of book
+            element.querySelector("#progress-btn").onclick = function() {
+                document.querySelector("#track-progress").innerHTML = `<div class="col p-0">
+                                                                            <input type="text" class="form-control" id="progress-page">
+                                                                        </div>
+                                                                        <div class="col">
+                                                                            <button class="btn btn-primary" type="submit" id="submit-progress">Submit</button>
+                                                                        </div>`;
+
+                document.querySelector("#submit-progress").onclick = function() {
+                    console.log("Submit Progress")
+                }
             }
 
         })
