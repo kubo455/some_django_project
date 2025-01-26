@@ -30,7 +30,7 @@ function bookView() {
     .then(respone => respone.json())
     .then(data => {
 
-        data.forEach(book => {
+        data.book_data.forEach(book => {
             console.log(book);
             var source = book.image;
 
@@ -46,6 +46,9 @@ function bookView() {
                 buttonValue = 'Remove from currently reading';
             }
     
+            const progressNumber = data.progress_data[0].progress_percentage;
+
+
             const element = document.createElement('div');
             element.classList.add('p-0');
             element.innerHTML = `<div class="row mb-5 p-1">
@@ -68,8 +71,8 @@ function bookView() {
                                 <div class="row ml-1" id="track-progress">
                                     <button class="btn btn-primary mb-3" id="progress-btn">Track progress</button>
                                 </div>
-                                <div class="progress ml-1" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="progress-bar" style="width: 25%">25%</div>
+                                <div class="progress ml-1" role="progressbar" aria-label="Example with label" aria-valuenow="${progressNumber}" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar" style="width: ${progressNumber}%">${progressNumber}%</div>
                                 </div>
                                 <div class="row m-0" id="book-info">
                                     <h5 class="m-2">Book info</h5>
@@ -83,7 +86,7 @@ function bookView() {
 
             // Fetch data from open open library and get decription
             // !! THIS IS NOT WORKING
-            fetch(`https://openlibrary.org/books/${data[0].key}.json`)
+            fetch(`https://openlibrary.org/books/${data.book_data[0].key}.json`)
             .then(respone => respone.json())
             .then(data => {
                 const description = data.description;
@@ -122,10 +125,10 @@ function bookView() {
 
             // Track progress of book
             element.querySelector("#progress-btn").onclick = function() {
-                document.querySelector("#track-progress").innerHTML = `<div class="col p-0">
+                document.querySelector("#track-progress").innerHTML = `<div class="col p-0 mb-3">
                                                                             <input class="form-control" id="progress-page" placeholder="Page">
                                                                         </div>
-                                                                        <div class="col">
+                                                                        <div class="col mb-3">
                                                                             <button class="btn btn-primary" type="submit" id="submit-progress">Submit</button>
                                                                         </div>`;
 

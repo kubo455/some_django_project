@@ -62,31 +62,6 @@ def logout_view(request):
     logout(request)
     return render(request, "my_app/login.html")
 
-# def add_book(request):
-#     if request.method == 'POST':
-#         # data_json = json.loads(request.body)
-#         # title = data_json.get('title')
-#         # author = data_json.get('author')
-#         # genre = data_json.get('genre')
-#         # image = data_json.get('image')
-#         # title = request.POST.get('title')
-#         # author = request.POST.get('author')
-#         # genre = request.POST.get('genre')
-#         # image = request.FILES.get('image')
-
-#         print(title)
-
-#         # if image:
-#             # with open(f'/random_project/media/{image.name}', 'wb+') as destination:
-#                 # for chunk in image.chunks():
-#                     # destination.write(chunk)
-
-#         # Book.objects.create(title=title, author=author, genre=genre, cover_image=image)
-
-#         return JsonResponse({"message": "Succesfully added book"})
-
-#     return JsonResponse({'error': 'Invalid request'}, status=400)
-
 def add_book(request):
     if request.method == 'POST':
         # Chesk if the form is valid and save the data from the user
@@ -100,10 +75,9 @@ def add_book(request):
     return render(request, 'my_app/index.html', {"form": form})
 
 def books_view(request):
-    # data = []
     books = Book.objects.all()
-
     all_books = []
+    
     # Get the books data a return Json response
     for book in books:
         if not book.cover_image:
@@ -154,8 +128,12 @@ def book_overview(request, id):
     return render(request, 'my_app/book_overview.html', {"book_id":id})
 
 def book_view(request, id):
-    data = []
+    # data = []
+    book_data = []
+    progress_data = []
+
     book = Book.objects.get(pk=id)
+    book_progress = ReadingProgress.objects.get(book_title=book)
     # Get the book data from DB
 
     if not book.cover_image:
@@ -163,7 +141,7 @@ def book_view(request, id):
     else:
         image = book.cover_image.url
 
-    data.append({
+    book_data.append({
         'title': book.title,
         'author': book.author,
         'genre': book.genre,
@@ -174,12 +152,19 @@ def book_view(request, id):
         'reading': book.currently_reading
     })
 
-    # if request.method == 'PUT':
-    #     data = json.loads(request.body)
-    #     btn_value = data.get('btn_value')
-    #     print(btn_value)
+    progress_percentage = book_progress.progress // (book_progress.pages_total / 100)
+    print(int(progress_percentage))
 
-    #     return JsonResponse({'message': 'Added to currently reading!!'}, status=200)
+    progress_data.append({
+        'pages_total': book_progress.pages_total,
+        'progress': book_progress.progress,
+        'progress_percentage': int(progress_percentage)
+    })
+
+    data = {
+        'book_data': book_data,
+        'progress_data': progress_data
+    }
 
     return JsonResponse(data, safe=False)
 
@@ -209,8 +194,21 @@ def track_progress(request):
         pages_total = data.get('pages_total')
         print(page_progress, bookd_id, pages_total)
 
-        # Should validate here id the progress page is not the last page if it is mark book as complete
-        ReadingProgress.objects.create(book_title=Book.objects.get(pk=int(bookd_id)), progress=int(page_progress), pages_total=pages_total, book_read=False)
+        # Check if the user is on last page
+        if int(page_progress) == int(pages_total):
+            status = True
+        else:
+            status = False
+
+        # Check if the progress is already added to database if not create one
+        check_book = ReadingProgress.objects.filter(book_title=Book.objects.get(pk=int(bookd_id))).exists()
+        if not check_book:
+            ReadingProgress.objects.create(book_title=Book.objects.get(pk=int(bookd_id)), progress=int(page_progress), pages_total=pages_total, book_read=status)
+        else:
+            book = ReadingProgress.objects.get(book_title=Book.objects.get(pk=int(bookd_id)))
+            book.progress = int(page_progress)
+            book.book_read = status
+            book.save()
         
         return JsonResponse({'message': 'Successfully added to the progress!'}, status=200)
 
