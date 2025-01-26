@@ -26,7 +26,7 @@ class ReadingProgress(models.Model):
     book_read = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.book_title
+        return self.book_title.title
 
 class Review(models.Model):
     pass

@@ -120,16 +120,48 @@ function bookView() {
             // Track progress of book
             element.querySelector("#progress-btn").onclick = function() {
                 document.querySelector("#track-progress").innerHTML = `<div class="col p-0">
-                                                                            <input type="text" class="form-control" id="progress-page">
+                                                                            <input class="form-control" id="progress-page" placeholder="Page">
                                                                         </div>
                                                                         <div class="col">
                                                                             <button class="btn btn-primary" type="submit" id="submit-progress">Submit</button>
                                                                         </div>`;
 
+                // Get input from user on witch page is user and put data to backend                                                                            
                 document.querySelector("#submit-progress").onclick = function() {
-                    console.log("Submit Progress")
+                    const input_page = element.querySelector('input').value;
+
+                    if (isNaN(input_page)) {
+                        alert('Must provide number!')
+                        return false;
+                    }
+
+                    fetch('/track_progress', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-type': 'application/json',
+                            'X-CSRFToken': csrftoken
+                        },
+                        body: JSON.stringify({
+                            page_progress: input_page,
+                            book_id: bookId,
+                            pages_total: book.pages
+                        })
+                    })
+                    .then(respone => {
+                        if (!respone.ok) {
+                            throw new Error(`Http error! Status: ${respone.status}`);
+                        }
+                        return respone.json()
+                    })
+                    .then(() => {
+                        bookView();
+                    })
+                    .catch(error => {
+                        console.error('Error', error);
+                    });
+
                 }
-            }
+            };
 
         })
 

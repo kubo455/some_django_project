@@ -5,9 +5,8 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import BookForm
-from .models import Book
 
-from .models import User
+from .models import User, Book, ReadingProgress
 
 def index(request):
     # My home page
@@ -199,7 +198,21 @@ def reading(request, id):
         # book.currently_reading = bool(btn_value)
         book.save()
         
-        return JsonResponse({'message': 'Added to currently reading!!'}, status=200)
+        return JsonResponse({'message': 'Added to currently reading!'}, status=200)
+    
+
+def track_progress(request):
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        page_progress = data.get('page_progress')
+        bookd_id = data.get('book_id')
+        pages_total = data.get('pages_total')
+        print(page_progress, bookd_id, pages_total)
+
+        # Should validate here id the progress page is not the last page if it is mark book as complete
+        ReadingProgress.objects.create(book_title=Book.objects.get(pk=int(bookd_id)), progress=int(page_progress), pages_total=pages_total, book_read=False)
+        
+        return JsonResponse({'message': 'Successfully added to the progress!'}, status=200)
 
 
 def search_book(request):

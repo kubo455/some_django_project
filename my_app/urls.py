@@ -14,5 +14,6 @@ urlpatterns = [
     path('books_view', views.books_view, name='books_view'),
     path('book_view/<int:id>', views.book_view, name='book_view'),
     path('search_book', views.search_book, name='search_book'),
-    path('book_view/<int:id>/reading', views.reading, name='reading')
+    path('book_view/<int:id>/reading', views.reading, name='reading'),
+    path('track_progress', views.track_progress, name='track_progress')
 ]
