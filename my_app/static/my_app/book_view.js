@@ -68,6 +68,9 @@ function bookView() {
                                 <div class="row ml-1" id="track-progress">
                                     <button class="btn btn-primary mb-3" id="progress-btn">Track progress</button>
                                 </div>
+                                <div class="progress ml-1" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar" style="width: 25%">25%</div>
+                                </div>
                                 <div class="row m-0" id="book-info">
                                     <h5 class="m-2">Book info</h5>
                                 </div>
