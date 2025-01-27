@@ -133,7 +133,6 @@ def book_view(request, id):
     progress_data = []
 
     book = Book.objects.get(pk=id)
-    book_progress = ReadingProgress.objects.get(book_title=book)
     # Get the book data from DB
 
     if not book.cover_image:
@@ -152,14 +151,23 @@ def book_view(request, id):
         'reading': book.currently_reading
     })
 
-    progress_percentage = book_progress.progress // (book_progress.pages_total / 100)
-    print(int(progress_percentage))
+    if ReadingProgress.objects.filter(book_title=book).exists():
+        # Get how much % is user progress in book
+        book_progress = ReadingProgress.objects.get(book_title=book)
+        progress_percentage = book_progress.progress / (book_progress.pages_total / 100)
+        print(int(progress_percentage))
 
-    progress_data.append({
-        'pages_total': book_progress.pages_total,
-        'progress': book_progress.progress,
-        'progress_percentage': int(progress_percentage)
-    })
+        progress_data.append({
+            'pages_total': book_progress.pages_total,
+            'progress': book_progress.progress,
+            'progress_percentage': int(progress_percentage)
+        })
+    else:
+        progress_data.append({
+            'pages_total': book.pages,
+            'progress': 0,
+            'progress_percentage': 0
+        })
 
     data = {
         'book_data': book_data,

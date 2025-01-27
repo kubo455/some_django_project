@@ -104,3 +104,16 @@ a {
 #book-info {
     border-bottom: 1px solid var(--charcoal);
 }
+
+.progress-bar {
+    background-color: var(--oxford-blue);
+    color: var(--lavender);
+    border-color: var(--charcoal);
+}
+
+.progress {
+    border: 2px solid var(--charcoal);
+    background-color: var(--lavender);
+    height: 1.2rem;
+    width: 60%;
+}
