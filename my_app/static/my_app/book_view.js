@@ -48,7 +48,6 @@ function bookView() {
     
             const progressNumber = data.progress_data[0].progress_percentage;
 
-
             const element = document.createElement('div');
             element.classList.add('p-0');
             element.innerHTML = `<div class="row mb-5 p-1">
@@ -71,8 +70,10 @@ function bookView() {
                                 <div class="row ml-1" id="track-progress">
                                     <button class="btn btn-primary mb-3" id="progress-btn">Track progress</button>
                                 </div>
-                                <div class="progress ml-1" role="progressbar" aria-label="Example with label" aria-valuenow="${progressNumber}" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="progress-bar" style="width: ${progressNumber}%">${progressNumber}%</div>
+                                <div id="progress-bar">
+                                    <div class="progress ml-1" role="progressbar" aria-label="Example with label" aria-valuenow="${progressNumber}" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar" style="width: ${progressNumber}%">${progressNumber}%</div>
+                                    </div>
                                 </div>
                                 <div class="row m-0" id="book-info">
                                     <h5 class="m-2">Book info</h5>
@@ -83,6 +84,10 @@ function bookView() {
                                 </div>`;
 
             document.querySelector("#book-view").append(element);
+
+            if (progressNumber === 0) {
+                document.querySelector("#progress-bar").style.display = 'none';
+            }
 
             // Fetch data from open open library and get decription
             // !! THIS IS NOT WORKING
@@ -175,4 +180,4 @@ function bookView() {
     .catch(error => {
         console.error('Error', error);
     })
-}
+};
