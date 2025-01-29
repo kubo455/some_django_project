@@ -94,11 +94,30 @@ function bookView() {
             fetch(`https://openlibrary.org/books/${data.book_data[0].key}.json`)
             .then(respone => respone.json())
             .then(data => {
-                const description = data.description;
-                console.log(data.description);
+                console.log(data);
+                var description = data.description;
+                // console.log(data.works[0].key);
+                // console.log(description);
 
-                document.querySelector("#book-description").append(description);
-            })
+                if (description == undefined) {
+
+                    fetch(`https://openlibrary.org${data.works[0].key}.json`)
+                    .then(respone => respone.json())
+                    .then(data => {
+                        if (typeof(data.description) == "object") {
+                            description = data.description.value;
+                        } else {
+                            description = data.description;
+                        }
+                        document.querySelector("#book-description").append(description);
+                    })
+                    
+                } else {
+                    document.querySelector("#book-description").append(description);
+                }
+
+            });
+
 
             // Add book to currently readings.
             element.querySelector('button').onclick = function() {

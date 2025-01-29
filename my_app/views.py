@@ -230,6 +230,10 @@ def search_book(request):
         cover_image = data.get('cover_image')
         edition_key = data.get('edition_key')
 
+        # Check if there are number of pages provided if not set it to 0
+        if pages == None:
+            pages = 0
+
         add_to_library = Book.objects.create(
                 title=title, 
                 author=author, 
