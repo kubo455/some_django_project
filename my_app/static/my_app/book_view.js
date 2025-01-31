@@ -76,10 +76,9 @@ function bookView() {
                                     </div>
                                 </div>
                                 <div class="row m-0" id="book-info">
-                                    <h5 class="m-2">Book info</h5>
+                                    <h5 class="m-2">Description:</h5>
                                 </div>
                                 <div class="row m-0">
-                                    <p class="m-2">Description:</p>
                                     <p class="m-2" id="book-description"></p>
                                 </div>`;
 
@@ -109,6 +108,11 @@ function bookView() {
                         } else {
                             description = data.description;
                         }
+
+                        if (description == undefined) {
+                            description = 'This book does not have decsription. Add one yourself.'
+                        }
+                        
                         document.querySelector("#book-description").append(description);
                     })
                     
