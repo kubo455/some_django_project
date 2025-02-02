@@ -111,7 +111,11 @@ function booksView() {
             var source = book.image;
 
             if (book.image == '...') {
-                source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`
+                if (book.google_books_cover == "") {
+                    source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`;
+                } else {
+                    source = book.google_books_cover;
+                }
             }
 
             element.innerHTML = `<div class="card mb-3" style="width: inherit; height: 167px;">
@@ -157,7 +161,7 @@ function booksView() {
             var source = book.image;
 
             if (book.image == '...') {
-                source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`
+                source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`;
             }
 
             element.innerHTML = `<div class="card mb-3" style="width: inherit; height: 167px;">

@@ -139,11 +139,14 @@ function searchBook() {
                     imageLink = book.volumeInfo.imageLinks.thumbnail;
                 }
 
-                let authorName = 'Author not provided';
+                let authorName = '';
 
-                if (book.volumeInfo.authors) {
+                if (!book.volumeInfo.authors) {
+                    authorName = 'Author not provided';
+                } else {
                     authorName = book.volumeInfo.authors[0];
                 }
+
 
                 element.innerHTML = `<div>
                                         <img src="${imageLink}" id="cover-image" class="img rounded-start" alt="..." style="width: 60px; height: 90px;">
@@ -159,10 +162,12 @@ function searchBook() {
 
                 document.querySelector("#book-view").append(element);
 
+                console.log(imageLink);
                 // Need to think about it first
                 const author = authorName;
                 const title = book.volumeInfo.title;
                 const pages = book.volumeInfo.pageCount;
+                const cover_image = imageLink;
                 // const cover_image = book.cover_i;
                 // const edition_key = book.cover_edition_key;
 
@@ -178,7 +183,7 @@ function searchBook() {
                             title: title,
                             author: author,
                             pages: pages,
-                            // cover_image: cover_image,
+                            cover_image: cover_image,
                             // edition_key: edition_key,
                         }),
                         mode: 'same-origin'

@@ -93,7 +93,8 @@ def books_view(request):
             'image': image,
             'open_lib_cover': book.open_lib_cover,
             'key': book.edition_key,
-            'currently_reading': book.currently_reading
+            'currently_reading': book.currently_reading,
+            'google_books_cover': book.google_books_cover,
         })
 
     current_books = []
@@ -221,6 +222,39 @@ def track_progress(request):
         return JsonResponse({'message': 'Successfully added to the progress!'}, status=200)
 
 
+# Open Library API
+# def search_book(request):
+#     if request.method == 'PUT':
+#         data = json.loads(request.body)
+#         title = data.get('title')
+#         author = data.get('author')
+#         pages = data.get('pages')
+#         cover_image = data.get('cover_image')
+#         edition_key = data.get('edition_key')
+
+#         # Check if there are number of pages provided if not set it to 0
+#         if pages == None:
+#             pages = 0
+
+#         add_to_library = Book.objects.create(
+#                 title=title, 
+#                 author=author, 
+#                 genre='Have to add', 
+#                 pages=int(pages), 
+#                 open_lib_cover=cover_image, 
+#                 edition_key=edition_key
+#             )
+            
+#         add_to_library.save()
+
+#         # Should repair this line !!!
+#         # return render(request, 'my_app/index.html')
+#         return JsonResponse({'message': 'Added to books!!'}, status=200)
+    
+
+#     return render(request, 'my_app/search_book.html')
+
+# Google Books API
 def search_book(request):
     if request.method == 'PUT':
         data = json.loads(request.body)
@@ -228,7 +262,7 @@ def search_book(request):
         author = data.get('author')
         pages = data.get('pages')
         cover_image = data.get('cover_image')
-        edition_key = data.get('edition_key')
+        # edition_key = data.get('edition_key')
 
         # Check if there are number of pages provided if not set it to 0
         if pages == None:
@@ -239,8 +273,9 @@ def search_book(request):
                 author=author, 
                 genre='Have to add', 
                 pages=int(pages), 
-                open_lib_cover=cover_image, 
-                edition_key=edition_key
+                google_books_cover=cover_image,
+                # open_lib_cover=cover_image, 
+                # edition_key=edition_key
             )
             
         add_to_library.save()

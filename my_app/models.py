@@ -11,7 +11,7 @@ class Book(models.Model):
     # decription = models.TextField(default=False)
     cover_image = models.ImageField(default=None, blank=True, null=True, upload_to="media/")
     open_lib_cover = models.IntegerField(blank=True, null=True)
-    google_books_cover = models.URLField(blank=True)
+    google_books_cover = models.URLField(blank=True, null=True)
     genre = models.CharField(max_length=64)
     pages = models.IntegerField(blank=True, null=True)
     edition_key = models.CharField(blank=True, null=True, max_length=64)
