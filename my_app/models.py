@@ -11,6 +11,7 @@ class Book(models.Model):
     # decription = models.TextField(default=False)
     cover_image = models.ImageField(default=None, blank=True, null=True, upload_to="media/")
     open_lib_cover = models.IntegerField(blank=True, null=True)
+    google_books_cover = models.URLField(blank=True)
     genre = models.CharField(max_length=64)
     pages = models.IntegerField(blank=True, null=True)
     edition_key = models.CharField(blank=True, null=True, max_length=64)
@@ -27,6 +28,13 @@ class ReadingProgress(models.Model):
 
     def __str__(self):
         return self.book_title.title
+
+class BookDescription(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, blank=True)
+    description = models.TextField()
+
+    def __str__(self):
+        return f"{self.book.title} {self.description}"
 
 class Review(models.Model):
     pass
