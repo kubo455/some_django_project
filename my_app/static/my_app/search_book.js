@@ -125,12 +125,12 @@ function searchBook() {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            console.log(`https://www.googleapis.com/books/v1/volumes?q=${document.querySelector("#title").value}+intitle`);
+            // console.log(`https://www.googleapis.com/books/v1/volumes?q=${document.querySelector("#title").value}+intitle`);
 
             data.items.forEach(book => {
                 const element = document.createElement('div');
                 element.classList.add('row');
-                element.id = 'search-view';
+                element.id = 'search-results';
                 
                 let imageLink = '...';
 
@@ -149,10 +149,12 @@ function searchBook() {
 
 
                 element.innerHTML = `<div>
-                                        <img src="${imageLink}" id="cover-image" class="img rounded-start" alt="..." style="width: 60px; height: 90px;">
+                                        <img src="${imageLink}" id="search-cover-image" class="img rounded" alt="..." style="width: 60px; height: 90px;">
                                     </div>
-                                    <div class="ml-3">
-                                        <h6 class="card-title" id="title" style="font-weight: bold;">${book.volumeInfo.title}</h6>
+                                    <div class="col ml-3">
+                                        <h6 class="card-title" id="title" style="font-weight: bold;">
+                                            <a href="search_view/${book.id}" id="book-link">${book.volumeInfo.title}</a>
+                                        </h6>
                                         <p class="card-text" id="author">${authorName}</p>
                                         <small class="text-muted" id="pages">Pages: ${book.volumeInfo.pageCount}</small>
                                     </div>
@@ -162,7 +164,11 @@ function searchBook() {
 
                 document.querySelector("#book-view").append(element);
 
-                console.log(imageLink);
+                element.querySelector("#search-cover-image").addEventListener('click', function () {
+                    window.location.href = `search_view/${book.id}`;
+                    // console.log(book.id);
+                }); 
+
                 // Need to think about it first
                 const author = authorName;
                 const title = book.volumeInfo.title;

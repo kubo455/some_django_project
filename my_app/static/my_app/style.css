@@ -91,7 +91,7 @@ a {
     border-color: var(--charcoal);
 } */
 
-#search-view {
+#search-results {
     border-bottom: 1px solid var(--charcoal);
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -116,4 +116,30 @@ a {
     background-color: var(--lavender);
     height: 1.2rem;
     width: 60%;
+}
+
+#book-link {
+    color: var(--lavender);
+}
+
+#book-link:hover {
+    color: var(--lavender);
+    text-decoration-thickness: 1px;
+}
+
+#search-cover-image {
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+#search-cover-image:hover {
+    border-color: var(--lavender);
+}
+
+#search-results {
+    transition: background-color 0.3s ease;
+}
+
+#search-results:hover {
+    background-color: var(--bc-color);
 }

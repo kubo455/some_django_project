@@ -286,3 +286,9 @@ def search_book(request):
     
 
     return render(request, 'my_app/search_book.html')
+
+def search_view(request, book_id):
+
+    return render(request, 'my_app/search_view.html', {'book_id': book_id})
+
+

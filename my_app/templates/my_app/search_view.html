@@ -1,0 +1,16 @@
+{% extends "my_app/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+
+    <input type="hidden" id="book-id" value="{{ book_id }}">
+    <div class="container-fluid p-0 mt-3" id="search-view" style="width: 80%;">
+
+    </div>
+
+{% endblock body %}
+
+{% block script %}
+    <script src="{% static 'my_app/search_view.js' %}"></script>
+{% endblock %}
