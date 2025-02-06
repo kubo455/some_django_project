@@ -35,41 +35,77 @@ function searchView(bookId) {
     .then(data => {
         console.log(data);
 
+        const author = data.volumeInfo.authors[0];
+        const title = data.volumeInfo.title;
+        const pages = data.volumeInfo.pageCount;
+        const cover_image = data.volumeInfo.imageLinks.thumbnail;
+        const description = data.volumeInfo.description;
+
         const element = document.createElement('div');
         element.classList.add('p-0', 'container');
         element.innerHTML = `<div class="row">
                                 <div class="col-3">
-                                    <img src="${data.volumeInfo.imageLinks.thumbnail}" id="cover-image-view" class="img rounded" alt="..." style="height: 250px;">
+                                    <img src="${cover_image}" id="cover-image-view" class="img rounded" alt="..." style="height: 250px;">
                                 </div>
                                 <div class="col d-flex flex-column">
                                     <div>
-                                        <h4>${data.volumeInfo.title}</h4>
+                                        <h4>${title}</h4>
                                     </div>
                                     <div>
-                                        <p>${data.volumeInfo.authors[0]}</p>
+                                        <p>${author}</p>
                                     </div>
                                     <div>
-                                        <p>${data.volumeInfo.categories[0]}</p>
+                                        <small class="text-muted">${data.volumeInfo.categories[0]}</small>
                                     </div>
                                     <div class="mt-auto d-flex justify-content-between align-items-center">
-                                        <p>Pages: ${data.volumeInfo.pageCount}</p>
-                                        <button class="btn btn-primary">Add to your books</button>
+                                        <p>Pages: ${pages}</p>
+                                        <button class="btn btn-primary" type="submit" id="add-btn">Add to your books</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="row m-0 mt-3" id="book-info">
                                 <div class="col px-0">
-                                    <h5>Description:</h5>
+                                    <div>Description:</div>
                                 </div>
                             </div>
-                            <div class="row m-0">
+                            <div class="row m-0 mt-3">
                                 <div class="col px-0">
-                                    <p class="m-2" id="book-description">${data.volumeInfo.description}</p>
+                                    <div id="book-description">${data.volumeInfo.description}</div>
                                 </div>
                             </div>`;
 
         document.querySelector("#search-view").append(element);
 
+        element.querySelector('button').addEventListener('click', function() {
+
+            console.log('!!!!!!!!!');
+
+            fetch('/add_to_library', {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({
+                    title: title,
+                    author: author,
+                    pages: pages,
+                    cover_image: cover_image,
+                    description: description,
+                }),
+                mode: 'same-origin'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json(); // Proceed only if the response is OK
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        })
 
     })
             

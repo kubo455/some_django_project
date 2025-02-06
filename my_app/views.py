@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import BookForm
 
-from .models import User, Book, ReadingProgress
+from .models import User, Book, ReadingProgress, BookDescription
 
 def index(request):
     # My home page
@@ -291,4 +291,38 @@ def search_view(request, book_id):
 
     return render(request, 'my_app/search_view.html', {'book_id': book_id})
 
+def add_to_library(request):
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        title = data.get('title')
+        author = data.get('author')
+        pages = data.get('pages')
+        cover_image = data.get('cover_image')
+        description = data.get('description')
 
+        # Check if there are number of pages provided if not set it to 0
+        if pages == None:
+            pages = 0
+
+        add_to_library = Book.objects.create(
+                title=title, 
+                author=author, 
+                genre='Have to add', 
+                pages=int(pages), 
+                google_books_cover=cover_image,
+                # open_lib_cover=cover_image, 
+                # edition_key=edition_key
+            )
+            
+        add_to_library.save()
+
+        print(description)
+
+        book_description = BookDescription.objects.create(
+            book=Book.objects.get(title=title),
+            description=description
+        )
+
+        book_description.save()
+
+        return JsonResponse({'message': 'Added to books!!'}, status=200)

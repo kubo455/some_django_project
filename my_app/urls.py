@@ -17,4 +17,6 @@ urlpatterns = [
     path('book_view/<int:id>/reading', views.reading, name='reading'),
     path('track_progress', views.track_progress, name='track_progress'),
     path('search_view/<str:book_id>', views.search_view, name='search_view'),
+    # Should change search_book API !!!!!!!
+    path('add_to_library', views.add_to_library, name='add_to_library')
 ]
