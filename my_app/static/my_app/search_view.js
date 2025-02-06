@@ -36,26 +36,37 @@ function searchView(bookId) {
         console.log(data);
 
         const element = document.createElement('div');
-        element.classList.add('p-0');
-        element.innerHTML = `<div class="row mb-5 p-1">
-                                    <div class="col-3">
-                                        <img src="${data.volumeInfo.imageLinks.thumbnail}" id="cover-image-view" class="img rounded" alt="..." style="height: 250px;">
-                                    </div>
-                                    <div class="col-3">
+        element.classList.add('p-0', 'container');
+        element.innerHTML = `<div class="row">
+                                <div class="col-3">
+                                    <img src="${data.volumeInfo.imageLinks.thumbnail}" id="cover-image-view" class="img rounded" alt="..." style="height: 250px;">
+                                </div>
+                                <div class="col d-flex flex-column">
+                                    <div>
                                         <h4>${data.volumeInfo.title}</h4>
+                                    </div>
+                                    <div>
                                         <p>${data.volumeInfo.authors[0]}</p>
+                                    </div>
+                                    <div>
                                         <p>${data.volumeInfo.categories[0]}</p>
                                     </div>
-                                    <div class="col">
+                                    <div class="mt-auto d-flex justify-content-between align-items-center">
                                         <p>Pages: ${data.volumeInfo.pageCount}</p>
+                                        <button class="btn btn-primary">Add to your books</button>
                                     </div>
                                 </div>
-                                <div class="row m-0" id="book-info">
-                                    <h5 class="m-2">Description:</h5>
+                            </div>
+                            <div class="row m-0 mt-3" id="book-info">
+                                <div class="col px-0">
+                                    <h5>Description:</h5>
                                 </div>
-                                <div class="row m-0">
+                            </div>
+                            <div class="row m-0">
+                                <div class="col px-0">
                                     <p class="m-2" id="book-description">${data.volumeInfo.description}</p>
-                                </div>`;
+                                </div>
+                            </div>`;
 
         document.querySelector("#search-view").append(element);
 

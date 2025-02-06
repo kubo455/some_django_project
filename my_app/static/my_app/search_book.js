@@ -148,7 +148,7 @@ function searchBook() {
                 }
 
 
-                element.innerHTML = `<div>
+                element.innerHTML = `<div class="ml-2">
                                         <img src="${imageLink}" id="search-cover-image" class="img rounded" alt="..." style="width: 60px; height: 90px;">
                                     </div>
                                     <div class="col ml-3">
