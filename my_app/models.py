@@ -34,7 +34,7 @@ class BookDescription(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return f"{self.book.title} {self.description}"
+        return f"{self.book.title}"
 
 class Review(models.Model):
     pass

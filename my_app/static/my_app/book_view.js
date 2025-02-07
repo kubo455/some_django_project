@@ -90,38 +90,41 @@ function bookView() {
 
             // Fetch data from open open library and get decription
             // !! THIS IS NOT WORKING
-            fetch(`https://openlibrary.org/books/${data.book_data[0].key}.json`)
-            .then(respone => respone.json())
-            .then(data => {
-                console.log(data);
-                var description = data.description;
-                // console.log(data.works[0].key);
-                // console.log(description);
-
-                if (description == undefined) {
-
-                    fetch(`https://openlibrary.org${data.works[0].key}.json`)
-                    .then(respone => respone.json())
-                    .then(data => {
-                        if (typeof(data.description) == "object") {
-                            description = data.description.value;
-                        } else {
-                            description = data.description;
-                        }
-
-                        if (description == undefined) {
-                            description = 'This book does not have decsription. Add one yourself.'
-                        }
+            if (book.description === false) {
+                fetch(`https://openlibrary.org/books/${data.book_data[0].key}.json`)
+                .then(respone => respone.json())
+                .then(data => {
+                    console.log(data);
+                    var description = data.description;
+                    // console.log(data.works[0].key);
+                    // console.log(description);
+    
+                    if (description == undefined) {
+    
+                        fetch(`https://openlibrary.org${data.works[0].key}.json`)
+                        .then(respone => respone.json())
+                        .then(data => {
+                            if (typeof(data.description) == "object") {
+                                description = data.description.value;
+                            } else {
+                                description = data.description;
+                            }
+    
+                            if (description == undefined) {
+                                description = 'This book does not have decsription. Add one yourself.'
+                            }
+                            
+                            document.querySelector("#book-description").append(description);
+                        })
                         
+                    } else {
                         document.querySelector("#book-description").append(description);
-                    })
-                    
-                } else {
-                    document.querySelector("#book-description").append(description);
-                }
-
-            });
-
+                    }
+    
+                });
+            } else {
+                document.querySelector("#book-description").append(book.description);
+            }
 
             // Add book to currently readings.
             element.querySelector('button').onclick = function() {

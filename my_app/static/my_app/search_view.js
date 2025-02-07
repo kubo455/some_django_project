@@ -35,11 +35,12 @@ function searchView(bookId) {
     .then(data => {
         console.log(data);
 
-        const author = data.volumeInfo.authors[0];
+        const author = data.volumeInfo.authors?.[0] || '';
         const title = data.volumeInfo.title;
         const pages = data.volumeInfo.pageCount;
-        const cover_image = data.volumeInfo.imageLinks.thumbnail;
-        const description = data.volumeInfo.description;
+        const cover_image = data.volumeInfo.imageLinks?.thumbnail || '...';
+        const description = data.volumeInfo?.description || 'No description';
+        const categories = data.volumeInfo.categories?.[0] || "";
 
         const element = document.createElement('div');
         element.classList.add('p-0', 'container');
@@ -55,7 +56,7 @@ function searchView(bookId) {
                                         <p>${author}</p>
                                     </div>
                                     <div>
-                                        <small class="text-muted">${data.volumeInfo.categories[0]}</small>
+                                        <small class="text-muted">${categories}</small>
                                     </div>
                                     <div class="mt-auto d-flex justify-content-between align-items-center">
                                         <p>Pages: ${pages}</p>

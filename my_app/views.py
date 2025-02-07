@@ -141,6 +141,11 @@ def book_view(request, id):
     else:
         image = book.cover_image.url
 
+    if BookDescription.objects.filter(book=book).exists():
+        book_description = BookDescription.objects.get(book=book).description
+    else:
+        book_description = False
+
     book_data.append({
         'title': book.title,
         'author': book.author,
@@ -149,7 +154,8 @@ def book_view(request, id):
         'pages': book.pages,
         'open_lib_cover': book.open_lib_cover,
         'key': book.edition_key,
-        'reading': book.currently_reading
+        'reading': book.currently_reading,
+        'description': str(book_description),
     })
 
     if ReadingProgress.objects.filter(book_title=book).exists():
