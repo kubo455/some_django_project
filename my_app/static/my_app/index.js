@@ -104,9 +104,8 @@ function booksView() {
 
         allBooks.forEach(book => {
             const element = document.createElement('div');
-            element.classList.add('col-3', 'p-3', 'rounded', 'd-flex');
-            // element.classList.add('card');
-            // element.style.width = '15rem';
+            // element.classList.add('col-3', 'p-3', 'rounded', 'd-flex');
+            element.classList.add('col-md-4', 'col-lg-3', 'rounded', 'mt-3');
 
             var source = book.image;
 
@@ -118,31 +117,32 @@ function booksView() {
                 }
             }
 
-            element.innerHTML = `<div class="card mb-3" style="width: inherit; height: 167px;">
-                                    <div class="row g-0" style="height: 100%;">
-                                        <div class="col-md-4" style="height: 100%;">
-                                            <img src="${source}" class="img rounded" alt="..." style="height: 100%; width:100px ;object-fit: cover;">
+            element.innerHTML = `<div class="px-0 py-0 border rounded" id="custom-card">
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-5 d-flex justify-content-center">
+                                            <img src="${source}" class="img rounded" alt="image" style="height: 135px; width: inherit;">
                                         </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <h6 class="card-title">${book.title}</h6>
-                                                <p class="card-text" style="font-size: 15px;">${book.author}</p>
-                                                <p class="card-text"><small class="text-muted">${book.genre}</small></p>
-                                            </div>
+                                        <div class="col mt-2">
+                                            <h6 class="card-title">${book.title}</>
+                                            <p class="card-text" style="font-size: 15px;">${book.author}</p>
+                                            <p class="card-text"><small class="text-muted">${book.genre}</small></p>
                                         </div>
                                     </div>
                                 </div>`;
-
-
-                                // <a href="/book_overview/${book.book_id}" class="card-text">${book.book_id}</a>
-                                // `<div class="card" style="width: inherit;">
-                                //     <img src="${book.image}" class="card-img-top" alt="..." style="width: 120px; height: auto;">
-                                //     <div class="card-body">
-                                //         ${book.title}<br>
-                                //         ${book.author}<br>
-                                //         ${book.genre}
-                                //     </div>
-                                // </div>` 
+            // element.innerHTML = `<div class="card mb-3" style="width: inherit; height: 167px;">
+            //                         <div class="row g-0" style="height: 100%;">
+            //                             <div class="col-md-4" style="height: 100%;">
+            //                                 <img src="${source}" class="img rounded" alt="..." style="height: 100%; width:100px ;object-fit: cover;">
+            //                             </div>
+            //                             <div class="col-md-8">
+            //                                 <div class="card-body">
+            //                                     <h6 class="card-title">${book.title}</h6>
+            //                                     <p class="card-text" style="font-size: 15px;">${book.author}</p>
+            //                                     <p class="card-text"><small class="text-muted">${book.genre}</small></p>
+            //                                 </div>
+            //                             </div>
+            //                         </div> 
+            //                     </div>`;
 
             element.addEventListener('click', function() {
                 // This looks like better solution
@@ -156,7 +156,8 @@ function booksView() {
 
         currentBooks.forEach(book => {
             const element = document.createElement('div');
-            element.classList.add('col-3', 'p-3', 'rounded', 'd-flex');
+            // element.classList.add('col-3', 'p-3', 'rounded', 'd-flex');
+            element.classList.add('col-md-4', 'col-lg-3', 'rounded', 'mt-3');
 
             var source = book.image;
 
@@ -164,17 +165,30 @@ function booksView() {
                 source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`;
             }
 
-            element.innerHTML = `<div class="card mb-3" style="width: inherit; height: 167px;">
-                                    <div class="row g-0" style="height: 100%;">
-                                        <div class="col-md-4" style="height: 100%;">
-                                            <img src="${source}" class="img rounded" alt="..." style="height: 100%; width:100px ;object-fit: cover;">
+            // element.innerHTML = `<div class="card mb-3" style="width: inherit; height: 167px;">
+            //                         <div class="row g-0" style="height: 100%;">
+            //                             <div class="col-md-4" style="height: 100%;">
+            //                                 <img src="${source}" class="img rounded" alt="..." style="height: 100%; width:100px ;object-fit: cover;">
+            //                             </div>
+            //                             <div class="col-md-8">
+            //                                 <div class="card-body">
+            //                                     <h6 class="card-title">${book.title}</h6>
+            //                                     <p class="card-text" style="font-size: 15px;">${book.author}</p>
+            //                                     <p class="card-text"><small class="text-muted">${book.genre}</small></p>
+            //                                 </div>
+            //                             </div>
+            //                         </div>
+            //                     </div>`;
+
+            element.innerHTML = `<div class="px-0 py-0 border rounded" id="custom-card">
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-5 d-flex justify-content-center">
+                                            <img src="${source}" class="img rounded" alt="image" style="height: 135px; width: inherit;">
                                         </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <h6 class="card-title">${book.title}</h6>
-                                                <p class="card-text" style="font-size: 15px;">${book.author}</p>
-                                                <p class="card-text"><small class="text-muted">${book.genre}</small></p>
-                                            </div>
+                                        <div class="col mt-2">
+                                            <h6 class="card-title">${book.title}</>
+                                            <p class="card-text" style="font-size: 15px;">${book.author}</p>
+                                            <p class="card-text"><small class="text-muted">${book.genre}</small></p>
                                         </div>
                                     </div>
                                 </div>`;
@@ -193,8 +207,17 @@ function booksView() {
 
 }
 
-function currentBooksView() {
 
-    
-
-}
+// element.classList.add('col-md-4', 'col-lg-3', 'rounded', 'mt-3');
+// element.innerHTML = `<div class="p-3 border rounded">
+//                         <div class="row">
+//                             <div class="col-md-6 col-lg-4 border text-start">
+//                                 <img src="${source}" class="img rounded" alt="image" style="height: 125px;">
+//                             </div>
+//                             <div class="col border">
+//                                 <h6 class="card-title">${book.title}</>
+//                                 <p class="card-text" style="font-size: 15px;">${book.author}</p>
+//                                 <p class="card-text"><small class="text-muted">${book.genre}</small></p>
+//                             </div>
+//                         </div>
+//                     </div>`;

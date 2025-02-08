@@ -143,3 +143,13 @@ a {
 #search-results:hover {
     background-color: var(--bc-color);
 }
+
+#custom-card {
+    background-color: var(--oxford-blue);
+    border: 1px solid var(--oxford-blue) !important;
+    transition: background-color 0.3s ease;
+}
+
+#custom-card:hover {
+    background-color: var(--bc-color);
+}
