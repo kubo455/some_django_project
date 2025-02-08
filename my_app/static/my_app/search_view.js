@@ -42,6 +42,9 @@ function searchView(bookId) {
         const description = data.volumeInfo?.description || 'No description';
         const categories = data.volumeInfo.categories?.[0] || "";
 
+        console.log(description);
+
+
         const element = document.createElement('div');
         element.classList.add('p-0', 'container');
         element.innerHTML = `<div class="row">

@@ -31,12 +31,16 @@ function bookView() {
     .then(data => {
 
         data.book_data.forEach(book => {
-            console.log(book);
             var source = book.image;
 
-            if (book.image == '...') {
+            console.log(book.google_book_image);
+            if (book.image == '...' && !book.google_book_image) {
                 source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`
+            } else {
+                source = book.google_book_image
             }
+
+            console.log(source);
 
             var buttonValue = '';
 
@@ -79,7 +83,7 @@ function bookView() {
                                     <h5 class="m-2">Description:</h5>
                                 </div>
                                 <div class="row m-0">
-                                    <p class="m-2" id="book-description"></p>
+                                    <div class="m-2" id="book-description"></div>
                                 </div>`;
 
             document.querySelector("#book-view").append(element);
@@ -90,15 +94,11 @@ function bookView() {
 
             // Fetch data from open open library and get decription
             // !! THIS IS NOT WORKING
-            if (book.description === false) {
+            if (book.description == false) {
                 fetch(`https://openlibrary.org/books/${data.book_data[0].key}.json`)
                 .then(respone => respone.json())
                 .then(data => {
-                    console.log(data);
                     var description = data.description;
-                    // console.log(data.works[0].key);
-                    // console.log(description);
-    
                     if (description == undefined) {
     
                         fetch(`https://openlibrary.org${data.works[0].key}.json`)
@@ -113,18 +113,22 @@ function bookView() {
                             if (description == undefined) {
                                 description = 'This book does not have decsription. Add one yourself.'
                             }
-                            
-                            document.querySelector("#book-description").append(description);
+                            // Open Lib description
+                            document.querySelector("#book-description").innerHTML = description;
                         })
                         
                     } else {
+                        // No description
                         document.querySelector("#book-description").append(description);
                     }
     
                 });
             } else {
-                document.querySelector("#book-description").append(book.description);
+                // Google Books description
+                document.querySelector("#book-description").innerHTML = book.description;
             }
+
+            console.log(typeof(book.description));
 
             // Add book to currently readings.
             element.querySelector('button').onclick = function() {

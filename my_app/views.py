@@ -146,6 +146,8 @@ def book_view(request, id):
     else:
         book_description = False
 
+    print([book_description])
+
     book_data.append({
         'title': book.title,
         'author': book.author,
@@ -155,7 +157,8 @@ def book_view(request, id):
         'open_lib_cover': book.open_lib_cover,
         'key': book.edition_key,
         'reading': book.currently_reading,
-        'description': str(book_description),
+        'description': book_description,
+        'google_book_image': book.google_books_cover
     })
 
     if ReadingProgress.objects.filter(book_title=book).exists():
