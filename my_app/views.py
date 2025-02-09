@@ -328,7 +328,7 @@ def add_to_library(request):
         print(description)
 
         book_description = BookDescription.objects.create(
-            book=Book.objects.get(title=title),
+            book=Book.objects.get(id=add_to_library.id),
             description=description
         )
 

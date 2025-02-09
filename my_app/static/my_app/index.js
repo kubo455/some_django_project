@@ -117,15 +117,21 @@ function booksView() {
                 }
             }
 
+            let bookTitle = book.title;
+
+            if (bookTitle.length >= 42) {
+                bookTitle = bookTitle.slice(0, 42) + '...';
+                console.log(bookTitle);
+            }
+
             element.innerHTML = `<div class="px-0 py-0 border rounded" id="custom-card">
                                     <div class="row">
                                         <div class="col-md-6 col-lg-5 d-flex justify-content-center">
                                             <img src="${source}" class="img rounded" alt="image" style="height: 135px; width: inherit;">
                                         </div>
                                         <div class="col mt-2">
-                                            <h6 class="card-title">${book.title}</>
-                                            <p class="card-text" style="font-size: 15px;">${book.author}</p>
-                                            <p class="card-text"><small class="text-muted">${book.genre}</small></p>
+                                            <h6 class="card-title">${bookTitle}</>
+                                            <p class="card-text"><small class="text-muted">${book.author}</small></p>
                                         </div>
                                     </div>
                                 </div>`;
@@ -150,6 +156,8 @@ function booksView() {
                 // Here can't go back to home page using back button
                 // window.location.replace(`book_overview/${book.book_id}`);
             })
+
+            console.log(book.title.length);
 
             document.querySelector("#books").append(element);
         })
@@ -187,8 +195,7 @@ function booksView() {
                                         </div>
                                         <div class="col mt-2">
                                             <h6 class="card-title">${book.title}</>
-                                            <p class="card-text" style="font-size: 15px;">${book.author}</p>
-                                            <p class="card-text"><small class="text-muted">${book.genre}</small></p>
+                                            <p class="card-text"><small class="text-muted">${book.author}</small></p>
                                         </div>
                                     </div>
                                 </div>`;
