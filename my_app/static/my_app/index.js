@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+// const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+// const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -183,6 +186,12 @@ function booksView() {
             element.alt = book.title;
             element.style.height = '135px';
             element.style.width = '90px';
+            element.id = 'current-books-image';
+            // element.dataset.bsToggle = 'popover';
+            // element.dataset.bsContent = 'This is popover';
+            // element.dataset.bsPlacement = 'top';
+            // element.dataset.bsTrigger = 'hover focus';
+
 
             // element.innerHTML = `<div class="card mb-3" style="width: inherit; height: 167px;">
             //                         <div class="row g-0" style="height: 100%;">
@@ -219,6 +228,20 @@ function booksView() {
                 // Here can't go back to home page using back button
                 // window.location.replace(`book_overview/${book.book_id}`);
             })
+
+            // Popover
+            new bootstrap.Popover(element, {
+                content: "This is a dynamic popover!",
+                placement: "top",
+                trigger: "hover"
+            });
+
+            // Should think about this more
+            let popover = document.querySelector('.popover');
+
+            if (popover) {
+                popover.style.backgroundcolor = 'black';
+            }
 
             document.querySelector("#current-books").append(element);
 

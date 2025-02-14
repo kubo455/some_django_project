@@ -153,3 +153,12 @@ a {
 #custom-card:hover {
     background-color: var(--bc-color);
 }
+
+#current-books-image {
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+#current-books-image:hover {
+    border-color: var(--lavender);
+}
