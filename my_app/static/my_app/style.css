@@ -165,6 +165,8 @@ a {
 
 .popover {
     background-color: var(--oxford-blue);
+    --bs-popover-bg: var(--oxford-blue); /* Change to your desired background color */
+    --bs-popover-border-color: var(--charcoal); /* Red border */
     border-color: var(--charcoal);
 }
 

@@ -113,7 +113,8 @@ def books_view(request):
             'image': image,
             'open_lib_cover': book.open_lib_cover,
             'key': book.edition_key,
-            'currently_reading': book.currently_reading
+            'currently_reading': book.currently_reading,
+            'google_books_cover': book.google_books_cover,
         })
 
 
