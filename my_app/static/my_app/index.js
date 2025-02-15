@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
     booksView();
     addBook();
 
@@ -181,7 +184,7 @@ function booksView() {
                 source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`;
             }
 
-            element.classList.add('image-fluid', 'm-2', 'rounded');
+            element.classList.add('image-fluid', 'rounded'); // m-1 ADD MARGIN
             element.src = source;
             element.alt = book.title;
             element.style.height = '135px';
@@ -231,7 +234,7 @@ function booksView() {
 
             // Popover
             new bootstrap.Popover(element, {
-                content: "This is a dynamic popover!",
+                content: `${book.title}`,
                 placement: "top",
                 trigger: "hover"
             });
@@ -240,7 +243,7 @@ function booksView() {
             let popover = document.querySelector('.popover');
 
             if (popover) {
-                popover.style.backgroundcolor = 'black';
+                popover.style.color =  'red';
             }
 
             document.querySelector("#current-books").append(element);

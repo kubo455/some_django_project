@@ -162,3 +162,13 @@ a {
 #current-books-image:hover {
     border-color: var(--lavender);
 }
+
+.popover {
+    background-color: var(--oxford-blue);
+    border-color: var(--charcoal);
+}
+
+.popover-body {
+    color: lavender;
+    font-weight: 800;
+}
