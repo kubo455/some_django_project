@@ -123,14 +123,14 @@ function booksView() {
 
             let bookTitle = book.title;
 
-            if (bookTitle.length >= 42) {
-                bookTitle = bookTitle.slice(0, 42) + '...';
+            if (bookTitle.length >= 30) {
+                bookTitle = bookTitle.slice(0, 30) + '...';
             }
 
             element.innerHTML = `<div class="px-0 py-0 border rounded" id="custom-card">
                                     <div class="row">
                                         <div class="col-md-6 col-lg-5 d-flex justify-content-center">
-                                            <img src="${source}" class="img rounded" alt="image" style="height: 135px; width: inherit;">
+                                            <img src="${source}" id="img-all-books" class="img rounded" alt="image">
                                         </div>
                                         <div class="col mt-2">
                                             <h6 class="card-title">${bookTitle}</>

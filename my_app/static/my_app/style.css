@@ -12,6 +12,11 @@ body {
     font-family: 'Courier New', Courier, monospace;
 }
 
+
+#body-container {
+    width: 50% !important;
+}
+
 #card-img-top {
     width: 125px;
     height: auto;
@@ -42,18 +47,24 @@ body {
 }
 
 .navbar {
-    background-color: var(--bc-color2);
+    background-color: var(--bc-color2) !important;
     border-color: var(--charcoal) !important;
     border-width: 80% !important;
     color: lavender;
-}
-
-.navbar-brand {
-    color: lavender;
+    width: 90% !important;
 }
 
 a {
-    color: lavender;
+    color: lavender !important;
+}
+
+.text-muted {
+    color: grey !important;
+}
+
+#img-all-books {
+    height: 125px !important;
+    width: 75px !important;
 }
 
 .navbar-toggler {
