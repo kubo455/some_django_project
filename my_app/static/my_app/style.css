@@ -10,6 +10,8 @@ body {
     background-color: var(--bc-color2);
     color: var(--lavender);
     font-family: 'Courier New', Courier, monospace;
+    /* font-family: 'Palatino',  URW Palladio L, serif;     */
+    /* font-family: 'New Century Schoolbook', TeX Gyre Shola, serif; */
 }
 
 
@@ -36,7 +38,7 @@ body {
 .btn-primary {
     background-color: var(--oxford-blue);
     /* border-color: var(--charcoal); */
-    border: none;
+    border: 2px solid var(--charcoal);
     color: var(--lavender);
 }
 
@@ -137,11 +139,12 @@ a {
 
 #book-link {
     color: var(--lavender);
+    text-decoration: none;
 }
 
 #book-link:hover {
     color: var(--lavender);
-    text-decoration-thickness: 1px;
+    text-decoration: 1px solid lavender;
 }
 
 #search-cover-image {

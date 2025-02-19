@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    // For pop over using Boostrap
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 
@@ -7,9 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     addBook();
 
 });
-
-// const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
-// const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
 
 function getCookie(name) {
     let cookieValue = null;
@@ -138,20 +136,6 @@ function booksView() {
                                         </div>
                                     </div>
                                 </div>`;
-            // element.innerHTML = `<div class="card mb-3" style="width: inherit; height: 167px;">
-            //                         <div class="row g-0" style="height: 100%;">
-            //                             <div class="col-md-4" style="height: 100%;">
-            //                                 <img src="${source}" class="img rounded" alt="..." style="height: 100%; width:100px ;object-fit: cover;">
-            //                             </div>
-            //                             <div class="col-md-8">
-            //                                 <div class="card-body">
-            //                                     <h6 class="card-title">${book.title}</h6>
-            //                                     <p class="card-text" style="font-size: 15px;">${book.author}</p>
-            //                                     <p class="card-text"><small class="text-muted">${book.genre}</small></p>
-            //                                 </div>
-            //                             </div>
-            //                         </div> 
-            //                     </div>`;
 
             element.addEventListener('click', function() {
                 // This looks like better solution
@@ -163,14 +147,7 @@ function booksView() {
 
         currentBooks.forEach(book => {
             const element = document.createElement('img');
-            // element.classList.add('col-3', 'p-3', 'rounded', 'd-flex');
-
-            // These are classes for custom card view
-            // element.classList.add('col-md-4', 'col-lg-3', 'rounded', 'mt-3');
-
-            // Only images
-            // element.classList.add('d-flex', 'justify-content-start', 'align-items-center', 'flex-wrap', 'gap-2');
-            
+    
             var source = book.image;
 
             if (book.image == '...') {
@@ -187,35 +164,6 @@ function booksView() {
             element.style.height = '135px';
             element.style.width = '90px';
             element.id = 'current-books-image';
-
-            // element.innerHTML = `<div class="card mb-3" style="width: inherit; height: 167px;">
-            //                         <div class="row g-0" style="height: 100%;">
-            //                             <div class="col-md-4" style="height: 100%;">
-            //                                 <img src="${source}" class="img rounded" alt="..." style="height: 100%; width:100px ;object-fit: cover;">
-            //                             </div>
-            //                             <div class="col-md-8">
-            //                                 <div class="card-body">
-            //                                     <h6 class="card-title">${book.title}</h6>
-            //                                     <p class="card-text" style="font-size: 15px;">${book.author}</p>
-            //                                     <p class="card-text"><small class="text-muted">${book.genre}</small></p>
-            //                                 </div>
-            //                             </div>
-            //                         </div>
-            //                     </div>`;
-
-            // element.innerHTML = `<div class="px-0 py-0 border rounded" id="custom-card">
-            //                         <div class="row">
-            //                             <div class="col-md-6 col-lg-5 d-flex justify-content-center">
-            //                                 <img src="${source}" class="img rounded" alt="image" style="height: 135px; width: inherit;">
-            //                             </div>
-            //                             <div class="col mt-2">
-            //                                 <h6 class="card-title">${book.title}</>
-            //                                 <p class="card-text"><small class="text-muted">${book.author}</small></p>
-            //                             </div>
-            //                         </div>
-            //                     </div>`;
-
-            // element.innerHTML = `<img src="${source}" class="img-fluid" alt="image" style="height: 135px;">`;
 
             element.addEventListener('click', function() {
                 window.location.href = `book_overview/${book.book_id}`;

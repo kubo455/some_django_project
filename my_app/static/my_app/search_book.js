@@ -129,7 +129,7 @@ function searchBook() {
 
             data.items.forEach(book => {
                 const element = document.createElement('div');
-                element.classList.add('row');
+                element.classList.add('row', 'd-flex');
                 element.id = 'search-results';
                 
                 let imageLink = '...';
@@ -148,17 +148,17 @@ function searchBook() {
                 }
 
 
-                element.innerHTML = `<div class="ml-2">
+                element.innerHTML = `<div class="col-lg-1 col-md-3 col-sm-6 px-0 me-3">
                                         <img src="${imageLink}" id="search-cover-image" class="img rounded" alt="..." style="width: 60px; height: 90px;">
                                     </div>
-                                    <div class="col ml-3">
+                                    <div class="col px-0">
                                         <h6 class="card-title" id="title" style="font-weight: bold;">
                                             <a href="search_view/${book.id}" id="book-link">${book.volumeInfo.title}</a>
                                         </h6>
-                                        <p class="card-text" id="author">${authorName}</p>
+                                        <p id="author"><small style="color: grey;">${authorName}</small></p>
                                         <small class="text-muted" id="pages">Pages: ${book.volumeInfo.pageCount}</small>
                                     </div>
-                                    <div class="col d-flex justify-content-end align-items-end">
+                                    <div class="col d-flex justify-content-end align-items-end px-0">
                                         <button class="btn btn-primary" id="add-to-library-${n}">Add to books</button>
                                     </div>`;
 
