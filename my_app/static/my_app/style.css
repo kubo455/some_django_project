@@ -64,7 +64,13 @@ a {
 
 #img-all-books {
     height: 125px !important;
-    width: 75px !important;
+    width: 80px !important;
+    min-width: 80px;
+}
+
+#all-books-info{
+    text-align: end;
+    margin-right: 5px;
 }
 
 .navbar-toggler {
@@ -157,7 +163,7 @@ a {
 
 #custom-card {
     background-color: var(--oxford-blue);
-    border: 1px solid var(--oxford-blue) !important;
+    border: 2px solid var(--oxford-blue) !important;
     transition: background-color 0.3s ease;
 }
 
@@ -171,7 +177,7 @@ a {
 }
 
 #current-books-image:hover {
-    border-color: var(--lavender);
+    border-color: var(--charcoal);
 }
 
 .popover {

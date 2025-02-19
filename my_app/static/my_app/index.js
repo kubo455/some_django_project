@@ -109,7 +109,7 @@ function booksView() {
         allBooks.forEach(book => {
             const element = document.createElement('div');
             // element.classList.add('col-3', 'p-3', 'rounded', 'd-flex');
-            element.classList.add('col-md-4', 'col-lg-3', 'rounded', 'mt-3');
+            element.classList.add('col-sm-12', 'col-md-6', 'col-lg-4', 'rounded', 'mt-3');
 
             var source = book.image;
 
@@ -127,13 +127,13 @@ function booksView() {
                 bookTitle = bookTitle.slice(0, 30) + '...';
             }
 
-            element.innerHTML = `<div class="px-0 py-0 border rounded" id="custom-card">
-                                    <div class="row">
-                                        <div class="col-md-6 col-lg-5 d-flex justify-content-center">
+            element.innerHTML = `<div class="rounded" id="custom-card">
+                                    <div class="row d-flex justify-content-start">
+                                        <div class="col col-md-4 d-flex justify-content-start">
                                             <img src="${source}" id="img-all-books" class="img rounded" alt="image">
                                         </div>
-                                        <div class="col mt-2">
-                                            <h6 class="card-title">${bookTitle}</>
+                                        <div class="col d-flex justify-content-end align-items-end" id="all-books-info">
+                                            <h6 class="card-title mt-3" style="font-weight: 800;">${bookTitle}</>
                                             <p class="card-text"><small class="text-muted">${book.author}</small></p>
                                         </div>
                                     </div>
