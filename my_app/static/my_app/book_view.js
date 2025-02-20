@@ -53,40 +53,41 @@ function bookView() {
             const progressNumber = data.progress_data[0].progress_percentage;
 
             const element = document.createElement('div');
-            element.classList.add('p-0');
-            element.innerHTML = `<div class="row mb-5 p-1">
-                                    <div class="col-3">
-                                        <img src="${source}" id="cover-image-view" class="img rounded" alt="..." style="height: 250px;">
-                                    </div>
-                                    <div class="col-3">
-                                        <h4>${book.title}</h4>
-                                        <p>${book.author}</p>
-                                        <p>${book.genre}</p>
-                                    </div>
-                                    <div class="col">
-                                        <p>Pages: ${book.pages}</p>
-                                        <p>Your progress: !!!!!</p>
-                                        <div class="row m-0 py-3" id="progress">
-                                            <button class="btn btn-primary" value="${book.reading}" id="add-btn">${buttonValue}</button>
-                                        </div>
-                                    </div>
+            element.classList.add('row' ,'px-0');
+
+            element.innerHTML = `<div class="col-lg-4 col-sm-6 px-0 mb-2">
+                                    <img src="${source}" id="cover-image-view" class="img rounded" alt="..." style="height: 250px;">
                                 </div>
-                                <div class="row ml-1" id="track-progress">
-                                    <button class="btn btn-primary mb-3" id="progress-btn">Track progress</button>
+                                <div class="col-lg-4 col-sm-6 px-0 me-2">
+                                    <h4>${book.title}</h4>
+                                    <p>${book.author}</p>
+                                    <p>${book.genre}</p>
                                 </div>
-                                <div id="progress-bar">
-                                    <div class="progress ml-1" role="progressbar" aria-label="Example with label" aria-valuenow="${progressNumber}" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar" style="width: ${progressNumber}%">${progressNumber}%</div>
-                                    </div>
-                                </div>
-                                <div class="row m-0" id="book-info">
-                                    <h5 class="m-2">Description:</h5>
-                                </div>
-                                <div class="row m-0">
-                                    <div class="m-2" id="book-description"></div>
+                                <div class="col-lg-3 px-0">
+                                    <p>Pages: ${book.pages}</p>
+                                    <button class="btn btn-primary" value="${book.reading}" id="add-btn">${buttonValue}</button>
                                 </div>`;
 
-            document.querySelector("#book-view").append(element);
+            const elementDescription = document.createElement('div');
+            elementDescription.classList.add('row', 'px-0');
+
+            elementDescription.innerHTML = `<div class="col-12 mt-3 px-0" id="track-progress">
+                                                <button class="btn btn-primary mb-3" id="progress-btn">Track progress</button>
+                                            </div>
+                                            <div class="col-12 px-0" id="progress-bar">
+                                                <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="${progressNumber}" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar" style="width: ${progressNumber}%">${progressNumber}%</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 px-0" id="book-info">
+                                                <h5 class="mt-2">Description:</h5>
+                                            </div>
+                                            <div class="col mt-2 px-0" id="book-description">
+                                            </div>`;
+
+
+
+            document.querySelector("#book-view").append(element, elementDescription);
 
             if (progressNumber === 0) {
                 document.querySelector("#progress-bar").style.display = 'none';
@@ -159,7 +160,7 @@ function bookView() {
             }
 
             // Track progress of book
-            element.querySelector("#progress-btn").onclick = function() {
+            elementDescription.querySelector("#progress-btn").onclick = function() {
                 document.querySelector("#track-progress").innerHTML = `<div class="col p-0 mb-3">
                                                                             <input class="form-control" id="progress-page" placeholder="Page">
                                                                         </div>
@@ -169,7 +170,7 @@ function bookView() {
 
                 // Get input from user on witch page is user and put data to backend                                                                            
                 document.querySelector("#submit-progress").onclick = function() {
-                    const input_page = element.querySelector('input').value;
+                    const input_page = elementDescription.querySelector('input').value;
 
                     if (isNaN(input_page)) {
                         alert('Must provide number!')
