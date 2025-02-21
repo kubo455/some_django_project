@@ -55,34 +55,49 @@ function bookView() {
             const element = document.createElement('div');
             element.classList.add('row' ,'px-0');
 
-            element.innerHTML = `<div class="col-lg-4 col-sm-6 px-0 mb-2">
+            element.innerHTML = `<div class="col-lg-3 col-sm-6 px-0 py-3">
                                     <img src="${source}" id="cover-image-view" class="img rounded" alt="..." style="height: 250px;">
                                 </div>
-                                <div class="col-lg-4 col-sm-6 px-0 me-2">
-                                    <h4>${book.title}</h4>
-                                    <p>${book.author}</p>
-                                    <p>${book.genre}</p>
-                                </div>
-                                <div class="col-lg-3 px-0">
-                                    <p>Pages: ${book.pages}</p>
-                                    <button class="btn btn-primary" value="${book.reading}" id="add-btn">${buttonValue}</button>
+                                <div class="col-lg-9 col-md-12 py-3">
+
+                                    <div class="row" style="height: 83.5%;">
+                                        <div class="col px-0 me-2">
+                                            <h4>${book.title}</h4>
+                                            <p>${book.author}</p>
+                                            <p>Pages: ${book.pages}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col px-0" style="width: 70%;">
+                                            <button class="btn btn-primary" value="${book.reading}" id="add-btn">${buttonValue}</button>
+                                        </div>
+                                    </div>
+
                                 </div>`;
 
             const elementDescription = document.createElement('div');
-            elementDescription.classList.add('row', 'px-0');
+            elementDescription.classList.add('px-0');
 
-            elementDescription.innerHTML = `<div class="col-12 mt-3 px-0" id="track-progress">
-                                                <button class="btn btn-primary mb-3" id="progress-btn">Track progress</button>
-                                            </div>
-                                            <div class="col-12 px-0" id="progress-bar">
-                                                <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="${progressNumber}" aria-valuemin="0" aria-valuemax="100">
-                                                    <div class="progress-bar" style="width: ${progressNumber}%">${progressNumber}%</div>
+            elementDescription.innerHTML = `<div class="row">
+                                                <div class="col mt-3 px-0" id="track-progress">
+                                                    <button class="btn btn-primary mb-3" id="progress-btn">Track progress</button>
                                                 </div>
                                             </div>
-                                            <div class="col-12 px-0" id="book-info">
-                                                <h5 class="mt-2">Description:</h5>
+                                            <div class="row">
+                                                <div class="col px-0" id="progress-bar">
+                                                    <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="${progressNumber}" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar" style="width: ${progressNumber}%">${progressNumber}%</div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col mt-2 px-0" id="book-description">
+                                            <div class="row">
+                                                <div class="col px-0" id="book-info">
+                                                    <h5 class="mt-2">Description:</h5>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col mt-2 px-0" id="book-description"></div>
                                             </div>`;
 
 
