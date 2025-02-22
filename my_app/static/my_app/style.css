@@ -19,6 +19,17 @@ body {
     width: 50% !important;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Palatino', URW Palladio L, serif;
+    font-weight: bold;
+}
+
+small {
+    color: grey;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight:100 ;
+}
+
 #card-img-top {
     width: 125px;
     height: auto;
@@ -140,11 +151,11 @@ a {
 #book-link {
     color: var(--lavender);
     text-decoration: none;
+    transition: border-bottom 0.5s ease;
 }
 
 #book-link:hover {
-    color: var(--lavender);
-    text-decoration: 1px solid lavender;
+    border-bottom: 1px solid lavender;
 }
 
 #search-cover-image {

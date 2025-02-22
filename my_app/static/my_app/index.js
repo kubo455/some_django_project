@@ -131,8 +131,8 @@ function booksView() {
                                             <img src="${source}" id="img-all-books" class="img rounded" alt="image">
                                         </div>
                                         <div class="col d-flex justify-content-end align-items-end" id="all-books-info">
-                                            <h6 class="card-title mt-3" style="font-weight: 800;">${bookTitle}</>
-                                            <p class="card-text"><small class="text-muted">${book.author}</small></p>
+                                            <h6 class="card-title mt-3" style="font-weight: 800;">${bookTitle}</><br>
+                                            <small class="text-muted">${book.author}</small>
                                         </div>
                                     </div>
                                 </div>`;

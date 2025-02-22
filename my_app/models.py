@@ -35,6 +35,14 @@ class BookDescription(models.Model):
 
     def __str__(self):
         return f"{self.book.title}"
+    
+class UserStats(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    total_pages = models.IntegerField(blank=True)
+    total_books = models.IntegerField(blank=True)
+
+    def __str__(self):
+        return f"{self.user.username}"
 
 class Review(models.Model):
     pass

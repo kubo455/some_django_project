@@ -56,7 +56,7 @@ function bookView() {
             element.classList.add('row' ,'px-0');
 
             element.innerHTML = `<div class="col-lg-3 col-sm-6 px-0 py-3">
-                                    <img src="${source}" id="cover-image-view" class="img rounded" alt="..." style="height: 250px;">
+                                    <img src="${source}" id="cover-image-view" class="img rounded" alt="..." style="height: 250px; width: 160px;">
                                 </div>
                                 <div class="col-lg-9 col-md-12 py-3">
 
@@ -64,7 +64,7 @@ function bookView() {
                                         <div class="col px-0 me-2">
                                             <h4>${book.title}</h4>
                                             <p>${book.author}</p>
-                                            <p>Pages: ${book.pages}</p>
+                                            <small>Pages: ${book.pages}</small>
                                         </div>
                                     </div>
 
@@ -79,8 +79,8 @@ function bookView() {
             const elementDescription = document.createElement('div');
             elementDescription.classList.add('px-0');
 
-            elementDescription.innerHTML = `<div class="row">
-                                                <div class="col mt-3 px-0" id="track-progress">
+            elementDescription.innerHTML = `<div class="row" id="track-progress">
+                                                <div class="col mt-3 px-0">
                                                     <button class="btn btn-primary mb-3" id="progress-btn">Track progress</button>
                                                 </div>
                                             </div>
@@ -144,8 +144,6 @@ function bookView() {
                 document.querySelector("#book-description").innerHTML = book.description;
             }
 
-            console.log(typeof(book.description));
-
             // Add book to currently readings.
             element.querySelector('button').onclick = function() {
 
@@ -176,7 +174,7 @@ function bookView() {
 
             // Track progress of book
             elementDescription.querySelector("#progress-btn").onclick = function() {
-                document.querySelector("#track-progress").innerHTML = `<div class="col p-0 mb-3">
+                document.querySelector("#track-progress").innerHTML = `<div class="col px-0 mb-3">
                                                                             <input class="form-control" id="progress-page" placeholder="Page">
                                                                         </div>
                                                                         <div class="col mb-3">
@@ -189,6 +187,11 @@ function bookView() {
 
                     if (isNaN(input_page)) {
                         alert('Must provide number!')
+                        return false;
+                    }
+
+                    if (Number(input_page) > book.pages) {
+                        alert('Page number can not be bigger than total pages!')
                         return false;
                     }
 

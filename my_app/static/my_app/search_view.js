@@ -61,8 +61,8 @@ function searchView(bookId) {
                                     <div>
                                         <small class="text-muted">${categories}</small>
                                     </div>
-                                    <div class="mt-auto d-flex justify-content-between align-items-center">
-                                        <p>Pages: ${pages}</p>
+                                    <div class="mt-auto d-flex justify-content-between align-items-end">
+                                        <small>Pages: ${pages}</small>
                                         <button class="btn btn-primary" type="submit" id="add-btn">Add to your books</button>
                                     </div>
                                 </div>
