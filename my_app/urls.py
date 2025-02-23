@@ -18,5 +18,6 @@ urlpatterns = [
     path('track_progress', views.track_progress, name='track_progress'),
     path('search_view/<str:book_id>', views.search_view, name='search_view'),
     # Should change search_book API !!!!!!!
-    path('add_to_library', views.add_to_library, name='add_to_library')
+    path('add_to_library', views.add_to_library, name='add_to_library'),
+    path('user_stats', views.user_stats, name='user_stats')
 ]

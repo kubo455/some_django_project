@@ -7,6 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
     booksView();
     addBook();
 
+    fetch('/user_stats')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+
 });
 
 function getCookie(name) {
@@ -181,5 +187,11 @@ function booksView() {
 
         })
     })
+
+}
+
+function userStats() {
+
+
 
 }

@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import BookForm
 
-from .models import User, Book, ReadingProgress, BookDescription
+from .models import User, Book, ReadingProgress, BookDescription, UserStats
 
 def index(request):
     # My home page
@@ -336,3 +336,12 @@ def add_to_library(request):
         book_description.save()
 
         return JsonResponse({'message': 'Added to books!!'}, status=200)
+
+def user_stats(requets):
+    user_data = []
+
+    get_data = UserStats.objects.get(user=requets.user)
+    print(get_data)
+
+
+    return JsonResponse({'message': 'User Stats'}, status=200)
