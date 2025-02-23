@@ -35,6 +35,12 @@ small {
     height: auto;
 }
 
+.border {
+    border: var(--lavender);
+    border-color: var(--oxford-blue) !important;
+    background-color: var(--oxford-blue) !important;
+}
+
 .card {
     /* border-color: var(--charcoal); */
     background-color: var(--oxford-blue); 

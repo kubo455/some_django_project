@@ -38,8 +38,8 @@ class BookDescription(models.Model):
     
 class UserStats(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
-    total_pages = models.IntegerField(blank=True)
-    total_books = models.IntegerField(blank=True)
+    total_pages = models.IntegerField(blank=True, null=True)
+    total_books = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.user.username}"

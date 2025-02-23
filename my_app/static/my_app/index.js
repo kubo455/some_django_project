@@ -6,12 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     booksView();
     addBook();
-
-    fetch('/user_stats')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-    })
+    userStats();
 
 });
 
@@ -190,8 +185,34 @@ function booksView() {
 
 }
 
-function userStats() {
+async function userStats() {
 
+    try {
+        let response = await fetch('/user_stats');
+        let data = await response.json();
+        console.log(data);
 
+        const pages = document.createElement('div');
+        pages.classList.add('col-6');
+
+        pages.innerHTML = `<div class="p-3 border rounded d-flex justify-content-center">Pages read: ${data.total_pages}</div>`;
+
+        const books = document.createElement('div');
+        books.classList.add('col-6');
+
+        books.innerHTML = `<div class="p-3 border rounded d-flex justify-content-center">Books read: ${data.total_books}</div>`;
+
+        document.querySelector('#user-stats').append(pages);
+        document.querySelector('#user-stats').append(books);
+
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+
+    // fetch('/user_stats')
+    // .then(response => response.json())
+    // .then(data => {
+        // console.log(data);
+    // })
 
 }

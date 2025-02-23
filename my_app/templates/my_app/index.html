@@ -4,11 +4,10 @@
 
 {% block body %}
 <div class="row">
-    <div class="col mt-3 mb-2">
+    <div class="col mt-3 mb-2 d-flex justify-content-center">
         <p>Currently reading</p>
     </div>
 </div>
-<div class="custom-border"></div>
 
 <!-- <div class="row" id="current-books">
     This is code for custom card view!!!
@@ -21,13 +20,14 @@
 
     </div>
 </div>
+<div class="custom-border mt-3"></div>
+
 
 <div class="row">
-    <div class="col mt-3">
+    <div class="col mt-3 d-flex justify-content-center">
         <p>All books</p>
     </div>
 </div>
-<div class="custom-border"></div>
 
 <div class="row" id="books">
     <!-- <div class="container-fluid" id="books-view"> -->
@@ -37,22 +37,32 @@
         <!-- <div class="custom-border"></div> -->
     <!-- </div> -->
 </div>
+<div class="custom-border mt-3"></div>
 
-    <div class="col-12 mt-3" id="add-button">
-        <p>Add books here</p>
-        <button class="btn btn-primary" id="add-book" type="submit">Add</button>
+
+<div class="row" id="user-stats">
+    <div class="p-3 d-flex justify-content-center">
+        <p>User stats</p>
     </div>
 
-    <form action="{% url 'add_book' %}" method="POST" class="col" id="add-book-form" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="container d-flex justify-content-center">
-            <div class="col-4 border rounded p-3">
-                {{ form.as_p }}
-                <button class="btn btn-primary mt-3" id="add-btn" type="submit">Add to books</button>
-            </div>
-        </div>
-    </form>
+
 </div>
+
+<div class="col-12 mt-3" id="add-button">
+    <p>Add books here</p>
+    <button class="btn btn-primary" id="add-book" type="submit">Add</button>
+</div>
+
+<form action="{% url 'add_book' %}" method="POST" class="col" id="add-book-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container d-flex justify-content-center">
+        <div class="col-4 border rounded p-3">
+            {{ form.as_p }}
+            <button class="btn btn-primary mt-3" id="add-btn" type="submit">Add to books</button>
+        </div>
+    </div>
+</form>
+
 {% endblock body %}
 
 {% block script %}
