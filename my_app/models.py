@@ -21,6 +21,7 @@ class Book(models.Model):
         return self.title
 
 class ReadingProgress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     book_title = models.ForeignKey(Book, on_delete=models.CASCADE, blank=True, null=True)
     pages_total = models.IntegerField(blank=True, null=True)
     progress = models.IntegerField(blank=True, null=True)

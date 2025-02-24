@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import BookForm
+from django.db.models import Sum
 
 from .models import User, Book, ReadingProgress, BookDescription, UserStats
 
@@ -228,6 +229,11 @@ def track_progress(request):
             book.progress = int(page_progress)
             book.book_read = status
             book.save()
+
+        update_stats = UserStats.objects.get(user=request.user)
+        update_stats.total_books = ReadingProgress.objects.filter(book_read=True).count()
+        update_stats.total_pages = ReadingProgress.objects.aggregate(Sum('progress'))['progress__sum'] or 0
+        update_stats.save()
         
         return JsonResponse({'message': 'Successfully added to the progress!'}, status=200)
 
@@ -338,17 +344,13 @@ def add_to_library(request):
         return JsonResponse({'message': 'Added to books!!'}, status=200)
 
 def user_stats(request):
-    book_read = ReadingProgress.objects.filter(book_read=True).count()
-    
-    #!!!! Should changes this later filter only for users books !!!!
-    pages_progress = ReadingProgress.objects.all()
-    total = 0
-    for i in pages_progress:
-        total += i.progress
-    #!!!!!!!!!!!!!
+
+    # books_read = ReadingProgress.objects.filter(book_read=True).count()
+    # pages_progress = ReadingProgress.objects.aggregate(Sum('progress'))['progress__sum'] or 0
 
     if not UserStats.objects.filter(user=request.user).exists():
-        UserStats.objects.create(user=request.user, total_books=book_read, total_pages=total)
+        UserStats.objects.create(user=request.user, total_books=ReadingProgress.objects.filter(book_read=True).count(), 
+                                 total_pages=ReadingProgress.objects.aggregate(Sum('progress'))['progress__sum'] or 0)
 
     data = UserStats.objects.get(user=request.user)
     user_data = {
@@ -357,4 +359,3 @@ def user_stats(request):
     }
 
     return JsonResponse(user_data, safe=False)
-    # return JsonResponse({'message': 'User Stats'}, status=200)
