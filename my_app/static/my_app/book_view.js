@@ -53,7 +53,7 @@ function bookView() {
             const progressNumber = data.progress_data[0].progress_percentage;
 
             const element = document.createElement('div');
-            element.classList.add('row' ,'px-0');
+            element.classList.add('row' ,'px-0', 'mb-3');
 
             element.innerHTML = `<div class="col-lg-3 col-sm-6 px-0 py-3">
                                     <img src="${source}" id="cover-image-view" class="img rounded" alt="..." style="height: 250px; width: 160px;">
@@ -80,7 +80,7 @@ function bookView() {
             elementDescription.classList.add('px-0');
 
             elementDescription.innerHTML = `<div class="row" id="track-progress">
-                                                <div class="col mt-3 px-0">
+                                                <div class="col px-0">
                                                     <button class="btn btn-primary mb-3" id="progress-btn">Track progress</button>
                                                 </div>
                                             </div>

@@ -156,7 +156,6 @@ function searchBook() {
                                             <a href="search_view/${book.id}" id="book-link">${book.volumeInfo.title}</a>
                                         </h6>
                                         <p id="author"><small style="color: grey;">${authorName}</small></p>
-                                        <small class="text-muted" id="pages">Pages: ${book.volumeInfo.pageCount}</small>
                                     </div>
                                     <div class="col d-flex justify-content-end align-items-end px-0">
                                         <button class="btn btn-primary" id="add-to-library-${n}">Add to books</button>
