@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     booksView();
     addBook();
     userStats();
+    newFunction();
 
 });
 
@@ -214,5 +215,38 @@ async function userStats() {
     // .then(data => {
         // console.log(data);
     // })
+
+}
+
+function newFunction() {
+
+    // const read = document.querySelector("#read");
+    // const currentlyReading = document.querySelector("#currently-reading");
+    // const notFinish = document.querySelector("#not-finish");
+
+    // Should change this when the page is loaded to only be active one at time
+    changeClass('read');
+    changeClass('currently-reading');
+    changeClass('not-finish');
+
+}
+
+function changeClass(id) {
+
+    let element = document.querySelector(`#${id}`);
+    element.addEventListener('click', function() {
+
+        console.log(element.classList.contains('link-acive'))
+        if (read.classList.contains('link-active')) {
+
+            element.classList.replace('link-active','custom-btn')
+
+        } else {
+
+            element.classList.replace('custom-btn', 'link-active');
+
+        }
+
+    })
 
 }

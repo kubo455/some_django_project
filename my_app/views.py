@@ -118,11 +118,18 @@ def books_view(request):
             'google_books_cover': book.google_books_cover,
         })
 
+    # not_finish = []
+    # for book in Book.objects.filter()
+
 
     data = {
         'all_books': all_books,
-        'current_books': current_books
+        'current_books': current_books,
+        # 'not_finished': 
     }
+
+    # I should change this to add not-finished books, read books, and currently reading
+    # should only return data I need for only one type
 
     return JsonResponse(data, safe=False)
 

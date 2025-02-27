@@ -101,6 +101,21 @@ a {
     border-bottom: 1px solid var(--charcoal);
 }
 
+.custom-btn {
+    background-color: var(--oxford-blue);
+    transition: border-color 0.5s ease;
+    color: lavender ;
+}
+
+.custom-btn:hover {
+    background-color: var(--bc-color);
+}
+
+.link-active {
+    background-color: var(--bc-color) !important;
+    color: lavender ;
+}
+
 /* .input-group-prepend {
     background-color: var(--oxford-blue) !important;
     border: none;
