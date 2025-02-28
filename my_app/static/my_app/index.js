@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     booksView();
     addBook();
     userStats();
-    newFunction();
 
 });
 
@@ -104,7 +103,6 @@ function booksView() {
     .then(response => response.json())
     .then(data => {
         const allBooks = data.all_books;
-        const currentBooks = data.current_books;
         
         allBooks.forEach(book => {
             const element = document.createElement('div');
@@ -147,41 +145,104 @@ function booksView() {
             document.querySelector("#books").append(element);
         })
 
-        currentBooks.forEach(book => {
-            const element = document.createElement('img');
+        const currentBooks = data.current_books;
+        const readBooks = data.read;
+        const notRead = data.not_finished;
+
+        let bookData = currentBooks;
+        loadBooks(currentBooks);
+
+        document.querySelector("#read").onclick = function() {
+            loadBooks(readBooks);
+            changeClass('read', 'currently-reading', 'not-finish');
+        }
+
+        document.querySelector("#currently-reading").onclick = function() {
+            loadBooks(currentBooks);
+            changeClass('currently-reading', 'not-finish', 'read');
+        }
+
+        document.querySelector("#not-finish").onclick = function() {
+            loadBooks(notRead);
+            changeClass('not-finish', 'currently-reading', 'read');
+        }
+
+        // bookData.forEach(book => {
+        //     const element = document.createElement('img');
     
-            var source = book.image;
+        //     var source = book.image;
 
-            if (book.image == '...') {
-                if (book.google_books_cover == "") {
-                    source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`;
-                } else {
-                    source = book.google_books_cover;
-                }
+        //     if (book.image == '...') {
+        //         if (book.google_books_cover == "") {
+        //             source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`;
+        //         } else {
+        //             source = book.google_books_cover;
+        //         }
+        //     }
+
+        //     element.classList.add('image-fluid', 'rounded', 'm-1'); // m-1 ADD MARGIN
+        //     element.src = source;
+        //     element.alt = book.title;
+        //     element.style.height = '135px';
+        //     element.style.width = '90px';
+        //     element.id = 'current-books-image';
+
+        //     element.addEventListener('click', function() {
+        //         window.location.href = `book_overview/${book.book_id}`;
+        //     })
+
+        //     // Popover
+        //     new bootstrap.Popover(element, {
+        //         content: `${book.title}`,
+        //         placement: "top",
+        //         trigger: "hover"
+        //     });
+
+
+        //     document.querySelector("#current-books").append(element);
+
+        // })
+    })
+
+}
+
+function loadBooks(data) {
+    document.querySelector("#current-books").innerHTML = '';
+    
+    data.forEach(book => {
+        const element = document.createElement('img');
+
+        var source = book.image;
+
+        if (book.image == '...') {
+            if (book.google_books_cover == "") {
+                source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`;
+            } else {
+                source = book.google_books_cover;
             }
+        }
 
-            element.classList.add('image-fluid', 'rounded', 'm-1'); // m-1 ADD MARGIN
-            element.src = source;
-            element.alt = book.title;
-            element.style.height = '135px';
-            element.style.width = '90px';
-            element.id = 'current-books-image';
+        element.classList.add('image-fluid', 'rounded', 'm-1'); // m-1 ADD MARGIN
+        element.src = source;
+        element.alt = book.title;
+        element.style.height = '135px';
+        element.style.width = '90px';
+        element.id = 'current-books-image';
 
-            element.addEventListener('click', function() {
-                window.location.href = `book_overview/${book.book_id}`;
-            })
-
-            // Popover
-            new bootstrap.Popover(element, {
-                content: `${book.title}`,
-                placement: "top",
-                trigger: "hover"
-            });
-
-
-            document.querySelector("#current-books").append(element);
-
+        element.addEventListener('click', function() {
+            window.location.href = `book_overview/${book.book_id}`;
         })
+
+        // Popover
+        new bootstrap.Popover(element, {
+            content: `${book.title}`,
+            placement: "top",
+            trigger: "hover"
+        });
+
+
+        document.querySelector("#current-books").append(element);
+
     })
 
 }
@@ -218,35 +279,30 @@ async function userStats() {
 
 }
 
-function newFunction() {
-
-    // const read = document.querySelector("#read");
-    // const currentlyReading = document.querySelector("#currently-reading");
-    // const notFinish = document.querySelector("#not-finish");
-
-    // Should change this when the page is loaded to only be active one at time
-    changeClass('read');
-    changeClass('currently-reading');
-    changeClass('not-finish');
-
-}
-
-function changeClass(id) {
+function changeClass(id, id1, id2) {
 
     let element = document.querySelector(`#${id}`);
-    element.addEventListener('click', function() {
+    let element1 = document.querySelector(`#${id1}`);
+    let element2 = document.querySelector(`#${id2}`);
 
-        console.log(element.classList.contains('link-acive'))
-        if (read.classList.contains('link-active')) {
+    element.classList.replace('custom-btn', 'link-active');
+    element1.classList.replace('link-active', 'custom-btn');
+    element2.classList.replace('link-active', 'custom-btn');
 
-            element.classList.replace('link-active','custom-btn')
 
-        } else {
+    // element.addEventListener('click', function() {
 
-            element.classList.replace('custom-btn', 'link-active');
+    //     console.log(element.classList.contains('link-acive'))
+    //     if (read.classList.contains('link-active')) {
 
-        }
+    //         element.classList.replace('link-active','custom-btn')
 
-    })
+    //     } else {
+
+    //         element.classList.replace('custom-btn', 'link-active');
+
+    //     }
+
+    // })
 
 }

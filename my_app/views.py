@@ -118,14 +118,46 @@ def books_view(request):
             'google_books_cover': book.google_books_cover,
         })
 
-    # not_finish = []
-    # for book in Book.objects.filter()
+    not_finish = []
+    read = []
+    for book in ReadingProgress.objects.filter(user=request.user):
+        if not book.book_title.cover_image:
+            image = '...'
+        else:
+            image = book.book_title.cover_image.url
 
+        if book.book_read == False and book.book_title.currently_reading == False:
+            print(book.book_title.currently_reading)
+            not_finish.append({
+                'book_id': book.book_title.pk,
+                'title': book.book_title.title,
+                'author': book.book_title.author,
+                'genre': book.book_title.genre,
+                'image': image,
+                'open_lib_cover': book.book_title.open_lib_cover,
+                'key': book.book_title.edition_key,
+                'currently_reading': book.book_title.currently_reading,
+                'google_books_cover': book.book_title.google_books_cover,
+            })
+        
+        elif book.book_read == True:
+            read.append({
+                'book_id': book.book_title.pk,
+                'title': book.book_title.title,
+                'author': book.book_title.author,
+                'genre': book.book_title.genre,
+                'image': image,
+                'open_lib_cover': book.book_title.open_lib_cover,
+                'key': book.book_title.edition_key,
+                'currently_reading': book.book_title.currently_reading,
+                'google_books_cover': book.book_title.google_books_cover,
+            })
 
     data = {
         'all_books': all_books,
         'current_books': current_books,
-        # 'not_finished': 
+        'not_finished': not_finish,
+        'read': read
     }
 
     # I should change this to add not-finished books, read books, and currently reading
