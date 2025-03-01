@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    searchBook();
+    document.querySelector('#search-book').onclick = function() {
+        searchBook();
+    }
 
 })
 
@@ -112,112 +114,210 @@ const csrftoken = getCookie('csrftoken');
 // }
 
 // This function is using Google Books API
-function searchBook() {
-    
-    document.querySelector('#search-book').onclick = function() {
+async function searchBook() {
 
-        document.querySelector("#book-view").innerHTML = '';
-        var n = 0;
+    document.querySelector("#book-view").innerHTML = '';
+    var n = 0;
 
-        // USE THIS ONE TO LOOK FOR BOOK INFO !!!!!!!!!!!!!!!!!!!!!
+    // USE THIS ONE TO LOOK FOR BOOK INFO !!!!!!!!!!!!!!!!!!!!!
+    try {
+        const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${document.querySelector("#title").value}+intitle`);
+        const data = await response.json();
+        console.log(data);
 
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${document.querySelector("#title").value}+intitle`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            // console.log(`https://www.googleapis.com/books/v1/volumes?q=${document.querySelector("#title").value}+intitle`);
+        data.items.forEach(book => {
+            const element = document.createElement('div');
+            element.classList.add('row', 'd-flex');
+            element.id = 'search-results';
+            
+            let imageLink = '...';
 
-            data.items.forEach(book => {
-                const element = document.createElement('div');
-                element.classList.add('row', 'd-flex');
-                element.id = 'search-results';
-                
-                let imageLink = '...';
+            // Check if image link exist if so change it
+            if (book.volumeInfo.imageLinks) {
+                imageLink = book.volumeInfo.imageLinks.thumbnail;
+            }
 
-                // Check if image link exist if so change it
-                if (book.volumeInfo.imageLinks) {
-                    imageLink = book.volumeInfo.imageLinks.thumbnail;
-                }
+            let authorName = '';
 
-                let authorName = '';
-
-                if (!book.volumeInfo.authors) {
-                    authorName = 'Author not provided';
-                } else {
-                    authorName = book.volumeInfo.authors[0];
-                }
+            if (!book.volumeInfo.authors) {
+                authorName = 'Author not provided';
+            } else {
+                authorName = book.volumeInfo.authors[0];
+            }
 
 
-                element.innerHTML = `<div class="col-lg-1 col-md-3 col-sm-6 px-0 me-3">
-                                        <img src="${imageLink}" id="search-cover-image" class="img rounded" alt="..." style="width: 60px; height: 90px;">
-                                    </div>
-                                    <div class="col px-0">
-                                        <h6 class="card-title" id="title" style="font-weight: bold;">
-                                            <a href="search_view/${book.id}" id="book-link">${book.volumeInfo.title}</a>
-                                        </h6>
-                                        <p id="author"><small style="color: grey;">${authorName}</small></p>
-                                    </div>
-                                    <div class="col d-flex justify-content-end align-items-end px-0">
-                                        <button class="btn btn-primary" id="add-to-library-${n}">Add to books</button>
-                                    </div>`;
+            element.innerHTML = `<div class="col-lg-1 col-md-3 col-sm-6 px-0 me-3">
+                                    <img src="${imageLink}" id="search-cover-image" class="img rounded" alt="..." style="width: 60px; height: 90px;">
+                                </div>
+                                <div class="col px-0">
+                                    <h6 class="card-title" id="title" style="font-weight: bold;">
+                                        <a href="search_view/${book.id}" id="book-link">${book.volumeInfo.title}</a>
+                                    </h6>
+                                    <p id="author"><small style="color: grey;">${authorName}</small></p>
+                                </div>
+                                <div class="col d-flex justify-content-end align-items-end px-0">
+                                    <button class="btn btn-primary" id="add-to-library-${n}">Add to books</button>
+                                </div>`;
 
-                document.querySelector("#book-view").append(element);
+            document.querySelector("#book-view").append(element);
 
-                element.querySelector("#search-cover-image").addEventListener('click', function () {
-                    window.location.href = `search_view/${book.id}`;
-                    // console.log(book.id);
-                }); 
+            element.querySelector("#search-cover-image").addEventListener('click', function () {
+                window.location.href = `search_view/${book.id}`;
+            }); 
 
-                // Need to think about it first
-                const author = authorName;
-                const title = book.volumeInfo.title;
-                const pages = book.volumeInfo.pageCount;
-                const cover_image = imageLink;
-                // const cover_image = book.cover_i;
-                // const edition_key = book.cover_edition_key;
+            // Need to think about it first
+            const author = authorName;
+            const title = book.volumeInfo.title;
+            const pages = book.volumeInfo.pageCount;
+            const cover_image = imageLink;
+            // const cover_image = book.cover_i;
+            // const edition_key = book.cover_edition_key;
 
-                document.querySelector(`#add-to-library-${n}`).addEventListener('click', function() {
+            document.querySelector(`#add-to-library-${n}`).addEventListener('click', function() {
 
-                    fetch('search_book', {
-                        method: 'PUT',
-                        headers: {
-                            'Content-type': 'application/json',
-                            'X-CSRFToken': csrftoken
-                        },
-                        body: JSON.stringify({
-                            title: title,
-                            author: author,
-                            pages: pages,
-                            cover_image: cover_image,
-                            // edition_key: edition_key,
-                        }),
-                        mode: 'same-origin'
-                    })
-                    // Think of changig code!!!
-                    .then(response => {
-                        if (!response.ok) { 
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json(); // Proceed only if the response is OK
-                    })
-                    // .then(data => {
-                        // console.log('Success:', data)
-                    // })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-
+                fetch('search_book', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: JSON.stringify({
+                        title: title,
+                        author: author,
+                        pages: pages,
+                        cover_image: cover_image,
+                        // edition_key: edition_key,
+                    }),
+                    mode: 'same-origin'
                 })
-
-                // Increment n
-                n ++;
+                // Think of changig code!!!
+                .then(response => {
+                    if (!response.ok) { 
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json(); // Proceed only if the response is OK
+                })
+                // .then(data => {
+                    // console.log('Success:', data)
+                // })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
 
             })
+
+            // Increment n
+            n ++;
+
         })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
 
+    } catch (error) {
+        console.error('Error:', error);
     }
-
 }
+
+// async function searchBook() {
+
+//     document.querySelector("#book-view").innerHTML = '';
+//     var n = 0;
+
+//     // USE THIS ONE TO LOOK FOR BOOK INFO !!!!!!!!!!!!!!!!!!!!!
+//     try {
+//         fetch(`https://www.googleapis.com/books/v1/volumes?q=${document.querySelector("#title").value}+intitle`)
+//         .then(response => response.json())
+//         .then(data => {
+//             console.log(data);
+//             // console.log(`https://www.googleapis.com/books/v1/volumes?q=${document.querySelector("#title").value}+intitle`);
+
+//             data.items.forEach(book => {
+//                 const element = document.createElement('div');
+//                 element.classList.add('row', 'd-flex');
+//                 element.id = 'search-results';
+                
+//                 let imageLink = '...';
+
+//                 // Check if image link exist if so change it
+//                 if (book.volumeInfo.imageLinks) {
+//                     imageLink = book.volumeInfo.imageLinks.thumbnail;
+//                 }
+
+//                 let authorName = '';
+
+//                 if (!book.volumeInfo.authors) {
+//                     authorName = 'Author not provided';
+//                 } else {
+//                     authorName = book.volumeInfo.authors[0];
+//                 }
+
+
+//                 element.innerHTML = `<div class="col-lg-1 col-md-3 col-sm-6 px-0 me-3">
+//                                         <img src="${imageLink}" id="search-cover-image" class="img rounded" alt="..." style="width: 60px; height: 90px;">
+//                                     </div>
+//                                     <div class="col px-0">
+//                                         <h6 class="card-title" id="title" style="font-weight: bold;">
+//                                             <a href="search_view/${book.id}" id="book-link">${book.volumeInfo.title}</a>
+//                                         </h6>
+//                                         <p id="author"><small style="color: grey;">${authorName}</small></p>
+//                                     </div>
+//                                     <div class="col d-flex justify-content-end align-items-end px-0">
+//                                         <button class="btn btn-primary" id="add-to-library-${n}">Add to books</button>
+//                                     </div>`;
+
+//                 document.querySelector("#book-view").append(element);
+
+//                 element.querySelector("#search-cover-image").addEventListener('click', function () {
+//                     window.location.href = `search_view/${book.id}`;
+//                     // console.log(book.id);
+//                 }); 
+
+//                 // Need to think about it first
+//                 const author = authorName;
+//                 const title = book.volumeInfo.title;
+//                 const pages = book.volumeInfo.pageCount;
+//                 const cover_image = imageLink;
+//                 // const cover_image = book.cover_i;
+//                 // const edition_key = book.cover_edition_key;
+
+//                 document.querySelector(`#add-to-library-${n}`).addEventListener('click', function() {
+
+//                     fetch('search_book', {
+//                         method: 'PUT',
+//                         headers: {
+//                             'Content-type': 'application/json',
+//                             'X-CSRFToken': csrftoken
+//                         },
+//                         body: JSON.stringify({
+//                             title: title,
+//                             author: author,
+//                             pages: pages,
+//                             cover_image: cover_image,
+//                             // edition_key: edition_key,
+//                         }),
+//                         mode: 'same-origin'
+//                     })
+//                     // Think of changig code!!!
+//                     .then(response => {
+//                         if (!response.ok) { 
+//                             throw new Error(`HTTP error! Status: ${response.status}`);
+//                         }
+//                         return response.json(); // Proceed only if the response is OK
+//                     })
+//                     // .then(data => {
+//                         // console.log('Success:', data)
+//                     // })
+//                     .catch(error => {
+//                         console.error('Error:', error);
+//                     });
+
+//                 })
+
+//                 // Increment n
+//                 n ++;
+
+//             })
+//         })
+//         .catch((error) => {
+//             console.error('Error:', error);
+//         });
+//     }
+// }
