@@ -8,6 +8,7 @@ from .forms import BookForm
 from django.db.models import Sum
 
 from .models import User, Book, ReadingProgress, BookDescription, UserStats
+from my_app.helpers.helpers import convert_data_to_json
 
 def index(request):
     # My home page
@@ -76,82 +77,16 @@ def add_book(request):
     return render(request, 'my_app/index.html', {"form": form})
 
 def books_view(request):
-    books = Book.objects.all()
-    all_books = []
-    
-    # Get the books data a return Json response
-    for book in books:
-        if not book.cover_image:
-            image = '...'
-        else:
-            image = book.cover_image.url
+    # Get the books data and return Json response
+    all_books = convert_data_to_json(Book.objects.all(), False)
 
-        all_books.append({
-            'book_id': book.pk,
-            'title': book.title,
-            'author': book.author,
-            'genre': book.genre,
-            'image': image,
-            'open_lib_cover': book.open_lib_cover,
-            'key': book.edition_key,
-            'currently_reading': book.currently_reading,
-            'google_books_cover': book.google_books_cover,
-        })
+    # Data for currently_reading books
+    current_books = convert_data_to_json(Book.objects.filter(currently_reading=True), False)
 
-    current_books = []
-    currently_reading = Book.objects.filter(currently_reading=True)
-    for book in currently_reading:
-        if not book.cover_image:
-            image = '...'
-        else:
-            image = book.cover_image.url
-        
-        current_books.append({
-            'book_id': book.pk,
-            'title': book.title,
-            'author': book.author,
-            'genre': book.genre,
-            'image': image,
-            'open_lib_cover': book.open_lib_cover,
-            'key': book.edition_key,
-            'currently_reading': book.currently_reading,
-            'google_books_cover': book.google_books_cover,
-        })
-
-    not_finish = []
-    read = []
-    for book in ReadingProgress.objects.filter(user=request.user):
-        if not book.book_title.cover_image:
-            image = '...'
-        else:
-            image = book.book_title.cover_image.url
-
-        if book.book_read == False and book.book_title.currently_reading == False:
-            print(book.book_title.currently_reading)
-            not_finish.append({
-                'book_id': book.book_title.pk,
-                'title': book.book_title.title,
-                'author': book.book_title.author,
-                'genre': book.book_title.genre,
-                'image': image,
-                'open_lib_cover': book.book_title.open_lib_cover,
-                'key': book.book_title.edition_key,
-                'currently_reading': book.book_title.currently_reading,
-                'google_books_cover': book.book_title.google_books_cover,
-            })
-        
-        elif book.book_read == True:
-            read.append({
-                'book_id': book.book_title.pk,
-                'title': book.book_title.title,
-                'author': book.book_title.author,
-                'genre': book.book_title.genre,
-                'image': image,
-                'open_lib_cover': book.book_title.open_lib_cover,
-                'key': book.book_title.edition_key,
-                'currently_reading': book.book_title.currently_reading,
-                'google_books_cover': book.book_title.google_books_cover,
-            })
+    # Data for not finished books and read books
+    not_finish = convert_data_to_json(ReadingProgress.objects.filter(user=request.user, book_read=False, 
+                                                                     book_title__currently_reading=False), True)
+    read = convert_data_to_json(ReadingProgress.objects.filter(user=request.user, book_read=True), True)
 
     data = {
         'all_books': all_books,
@@ -186,8 +121,6 @@ def book_view(request, id):
         book_description = BookDescription.objects.get(book=book).description
     else:
         book_description = False
-
-    print([book_description])
 
     book_data.append({
         'title': book.title,
@@ -336,7 +269,6 @@ def search_book(request):
         add_to_library.save()
 
         # Should repair this line !!!
-        # return render(request, 'my_app/index.html')
         return JsonResponse({'message': 'Added to books!!'}, status=200)
     
 

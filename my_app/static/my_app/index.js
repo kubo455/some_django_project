@@ -151,6 +151,7 @@ function booksView() {
 
         let bookData = currentBooks;
         loadBooks(currentBooks);
+        changeClass('currently-reading', 'not-finish', 'read');
 
         document.querySelector("#read").onclick = function() {
             loadBooks(readBooks);
