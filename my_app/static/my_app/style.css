@@ -16,7 +16,7 @@ body {
 
 
 #body-container {
-    width: 50% !important;
+    width: 50%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -225,4 +225,22 @@ a {
 .popover-body {
     color: lavender;
     font-weight: 800;
+}
+
+/* Changes width when the window is smaller */
+@media (max-width: 1000px) {
+    #body-container {
+        width: 100%;
+    }
+
+    .navbar {
+        width: 100% !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    #layout-container {
+        width: 100%;
+        max-width: 100%;
+    }
 }

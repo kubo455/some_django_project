@@ -138,8 +138,11 @@ def book_view(request, id):
     if ReadingProgress.objects.filter(book_title=book).exists():
         # Get how much % is user progress in book
         book_progress = ReadingProgress.objects.get(book_title=book)
-        progress_percentage = book_progress.progress / (book_progress.pages_total / 100)
-        print(int(progress_percentage))
+        if book_progress.progress == book_progress.pages_total:
+            progress_percentage = 100
+        else:
+            progress_percentage = book_progress.progress / (book_progress.pages_total / 100)
+
 
         progress_data.append({
             'pages_total': book_progress.pages_total,
