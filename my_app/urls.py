@@ -8,6 +8,7 @@ urlpatterns = [
     path('register/', views.register_view, name='register'), 
     path('logout/', views.logout_view, name='logout'),
     path('book_overview/<int:id>', views.book_overview, name='book_overview'),
+    path('library/', views.user_library, name='library'),
 
     # API
     path('add_book', views.add_book, name='add_book'),
@@ -19,5 +20,5 @@ urlpatterns = [
     path('search_view/<str:book_id>', views.search_view, name='search_view'),
     # Should change search_book API !!!!!!!
     path('add_to_library', views.add_to_library, name='add_to_library'),
-    path('user_stats', views.user_stats, name='user_stats')
+    path('user_stats', views.user_stats, name='user_stats'),
 ]

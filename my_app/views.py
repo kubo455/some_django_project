@@ -333,3 +333,8 @@ def user_stats(request):
     }
 
     return JsonResponse(user_data, safe=False)
+
+def user_library(request):
+    
+
+    return render(request, 'my_app/library.html')
