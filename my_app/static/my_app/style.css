@@ -142,12 +142,6 @@ a {
     border-color: var(--charcoal);
 } */
 
-#search-results {
-    border-bottom: 1px solid var(--charcoal);
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-}
-
 #cover-image-view {
     border: 1px solid var(--charcoal);
 }
@@ -189,10 +183,24 @@ a {
 }
 
 #search-results {
+    border-bottom: 1px solid var(--charcoal);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     transition: background-color 0.3s ease;
 }
 
 #search-results:hover {
+    background-color: var(--bc-color);
+}
+
+#library-books {
+    border-bottom: 1px solid var(--charcoal);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#library-books:hover {
     background-color: var(--bc-color);
 }
 
