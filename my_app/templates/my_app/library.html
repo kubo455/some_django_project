@@ -3,30 +3,35 @@
 
 
 {% block body %}
-<div class="row">
-    <div class="col d-flex mt-3 mb-1">
-        <div class="px-3 py-1 rounded-4 me-3 custom-btn" id="all-books" href="">
-            All
-        </div>
+<div class="container" style="width:80%;">
+    <div class="row" id="library-navbar">
+        <div class="col d-flex justify-content-start mt-3 mb-1 px-0">
+            <div class="px-3 py-1 rounded-4 me-3 custom-btn" id="all-books" href="">
+                All
+            </div>
 
-        <div class="px-3 py-1 rounded-4 me-3 custom-btn" id="currently-reading" href="">
-        <!-- <div class="col mt-3 mb-2 d-flex justify-content-center"> -->
-            Reading
-        </div>
+            <div class="px-3 py-1 rounded-4 me-3 custom-btn" id="currently-reading" href="">
+            <!-- <div class="col mt-3 mb-2 d-flex justify-content-center"> -->
+                Reading
+            </div>
 
-        <div class="px-3 py-1 rounded-4 me-3 custom-btn" id="read" href="">
-            Read
-        </div>
+            <div class="px-3 py-1 rounded-4 me-3 custom-btn" id="read" href="">
+                Read
+            </div>
 
-        <div class="px-3 py-1 rounded-4 me-3 custom-btn" id="not-finish" href="">
-            Not finish
+            <div class="px-3 py-1 rounded-4 me-3 custom-btn" id="not-finish" href="">
+                Not finish
+            </div>
         </div>
+    </div>
+
+
+    <div id="library-view">
+
     </div>
 </div>
 
-<div id="library-view">
 
-</div>
 
 {% endblock body %}
 

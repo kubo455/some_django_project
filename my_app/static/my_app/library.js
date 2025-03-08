@@ -53,7 +53,7 @@ function booksView(booksData) {
     if (booksData === undefined) {
 
         console.log('!!!!');
-        document.querySelector("#library-view").innerHTML = '<p>This list is empty</p>';
+        document.querySelector("#library-view").innerHTML = '<p class="mt-3">This list is empty</p>';
 
     } else {
 
@@ -84,12 +84,16 @@ function booksView(booksData) {
                                 </div>
                                 <div class="col px-0">
                                     <h6 class="card-title" id="title" style="font-weight: bold;">
-                                        <a href="search_view/${book.id}" id="book-link">${book.title}</a>
+                                        <a href="/book_overview/${book.book_id}" id="book-link">${book.title}</a>
                                     </h6>
                                     <p id="author"><small style="color: grey;">${book.author}</small></p>
                                 </div>`;
 
             document.querySelector('#library-view').append(element);
+
+            element.querySelector("#search-cover-image").addEventListener('click', function () {
+                window.location.href = `/book_overview/${book.book_id}`;
+            }); 
 
         })
     }

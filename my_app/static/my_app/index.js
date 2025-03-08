@@ -149,7 +149,7 @@ function booksView() {
         const readBooks = data.read;
         const notRead = data.not_finished;
 
-        let bookData = currentBooks;
+        // let bookData = currentBooks;
         loadBooks(currentBooks);
         changeClass('currently-reading', 'not-finish', 'read');
 
@@ -167,42 +167,6 @@ function booksView() {
             loadBooks(notRead);
             changeClass('not-finish', 'currently-reading', 'read');
         }
-
-        // bookData.forEach(book => {
-        //     const element = document.createElement('img');
-    
-        //     var source = book.image;
-
-        //     if (book.image == '...') {
-        //         if (book.google_books_cover == "") {
-        //             source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`;
-        //         } else {
-        //             source = book.google_books_cover;
-        //         }
-        //     }
-
-        //     element.classList.add('image-fluid', 'rounded', 'm-1'); // m-1 ADD MARGIN
-        //     element.src = source;
-        //     element.alt = book.title;
-        //     element.style.height = '135px';
-        //     element.style.width = '90px';
-        //     element.id = 'current-books-image';
-
-        //     element.addEventListener('click', function() {
-        //         window.location.href = `book_overview/${book.book_id}`;
-        //     })
-
-        //     // Popover
-        //     new bootstrap.Popover(element, {
-        //         content: `${book.title}`,
-        //         placement: "top",
-        //         trigger: "hover"
-        //     });
-
-
-        //     document.querySelector("#current-books").append(element);
-
-        // })
     })
 
 }
@@ -289,21 +253,5 @@ function changeClass(id, id1, id2) {
     element.classList.replace('custom-btn', 'link-active');
     element1.classList.replace('link-active', 'custom-btn');
     element2.classList.replace('link-active', 'custom-btn');
-
-
-    // element.addEventListener('click', function() {
-
-    //     console.log(element.classList.contains('link-acive'))
-    //     if (read.classList.contains('link-active')) {
-
-    //         element.classList.replace('link-active','custom-btn')
-
-    //     } else {
-
-    //         element.classList.replace('custom-btn', 'link-active');
-
-    //     }
-
-    // })
 
 }
