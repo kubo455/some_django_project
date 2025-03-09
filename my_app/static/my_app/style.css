@@ -254,5 +254,5 @@ a {
 }
 
 #library-navbar {
-    border-bottom: 1px solid var(--charcoal);
+    /* border-bottom: 1px solid var(--charcoal); */
 }

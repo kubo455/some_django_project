@@ -16,27 +16,27 @@ async function books() {
         const all = data.all_books;
         const notFinish = data.not_finish;
 
-        booksView(all);
+        cardView(all);
         changeClass('all-books', 'currently-reading', 'not-finish', 'read');
 
         // SHOULD PLACE THIS CODE ELSEWHERE !@!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         document.querySelector("#read").onclick = function() {
-            booksView(read);
+            cardView(read);
             changeClass('read', 'currently-reading', 'not-finish', 'all-books');
         }
 
         document.querySelector("#all-books").onclick = function() {
-            booksView(all);
+            cardView(all);
             changeClass('all-books', 'currently-reading', 'not-finish', 'read');
         }
 
         document.querySelector("#currently-reading").onclick = function() {
-            booksView(current);
+            cardView(current);
             changeClass('currently-reading', 'not-finish', 'all-books', 'read');
         }
 
         document.querySelector("#not-finish").onclick = function() {
-            booksView(notFinish);
+            cardView(notFinish);
             changeClass('not-finish', 'read', 'currently-reading', 'all-books');
         }
 
@@ -46,7 +46,7 @@ async function books() {
 
 }
 
-function booksView(booksData) {
+function cardView(booksData) {
 
     document.querySelector("#library-view").innerHTML = '';
 
@@ -99,6 +99,55 @@ function booksView(booksData) {
     }
 }
 
+function shelfView(booksData) {
+
+    document.querySelector("#library-view").innerHTML = '';
+
+    if (booksData === undefined) {
+
+        console.log('!!!!');
+        document.querySelector("#library-view").innerHTML = '<p class="mt-3">This list is empty</p>';
+
+    } else {
+
+        booksData.forEach(book => {
+
+            const element = document.createElement('img');
+
+            let source = book.image;
+
+            if (book.image == '...') {
+                if (book.google_books_cover == "") {
+                    source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`;
+                } else {
+                    source = book.google_books_cover;
+                }
+            }
+
+            element.classList.add('image-fluid', 'rounded', 'm-1'); // m-1 ADD MARGIN
+            element.src = source;
+            element.alt = book.title;
+            element.style.height = '135px';
+            element.style.width = '90px';
+            element.id = 'current-books-image';
+
+            element.addEventListener('click', function() {
+                window.location.href = `book_overview/${book.book_id}`;
+            })
+
+            // Popover
+            new bootstrap.Popover(element, {
+                content: `${book.title}`,
+                placement: "top",
+                trigger: "hover"
+            });
+
+            document.querySelector("#library-view").append(element);
+
+        })
+    }
+}
+
 function changeClass(id, id1, id2, id3) {
 
     let element = document.querySelector(`#${id}`);
@@ -112,3 +161,15 @@ function changeClass(id, id1, id2, id3) {
     element3.classList.replace('link-active', 'custom-btn');
 
 }
+
+function switchView(view, view1) {
+
+    let element = document.querySelector(`#${view}`);
+    let element1 = document.querySelector(`#${view1}`);
+
+    element.classList.replace('custom-btn', 'link-active');
+    element1.classList.replace('link-active', 'custom-btn');
+
+}
+
+// Have to change that user can change the view
