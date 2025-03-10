@@ -2,6 +2,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     books();
 
+    document.querySelector("#card-view").onclick = function() {
+        books();
+    }
+
+    document.querySelector("#shelf-view").onclick = function() {
+        books();
+    }
+
 })
 
 async function books() {
