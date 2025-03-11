@@ -4,21 +4,16 @@
 
 {% block body %}
 <div class="container justify-content-center" style="width: 80%;">
-    <div class="row p-3 d-flex justify-content-center mt-3 rounded" style="border: 1px solid #324a5f;">
-        <div class="col d-flex align-items-center">
-            <!-- <div class="input-group"> -->
-                <!-- <div class="input-group-prepend" style="border-right: none;"> -->
-                    <!-- <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span> -->
-                <!-- </div> -->
-                <input id="title" type="text" class="form-control" autofocus placeholder="Search for book ...">
-            <!-- </div> -->
-            <button class="btn btn-primary ms-2" id="search-book" type="submit">Search</button>
-        </div>
-    </div>
-    
-    <!-- <div id="book-view">
 
-    </div> -->
+    <div class="row p-3 d-flex justify-content-center mt-3 rounded" style="border: 1px solid #324a5f;">
+        <!-- Has to work on the form submision -->
+        <!-- <form class="col d-flex align-items-center" id="search-form"> -->
+        <div class="col d-flex align-items-center" id="search-form">
+                <input id="title" type="text" class="form-control" autofocus placeholder="Search for book ...">
+                <button class="btn btn-primary ms-2" id="search-book" autofocus type="submit">Search</button>
+        </div>
+        <!-- </form> -->
+    </div>
     
 </div>
 

@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelector('#search-book').onclick = function() {
-        searchBook();
+        searchBook(document.querySelector("#title").value);
     }
+    // document.querySelector("#search-book").addEventListener('submit', function(event) {
+    //     event.preventDefault();
 
+    //     searchBook(document.querySelector("#title").value);
+    // })
 })
 
 function getCookie(name) {
@@ -114,14 +118,14 @@ const csrftoken = getCookie('csrftoken');
 // }
 
 // This function is using Google Books API
-async function searchBook() {
+async function searchBook(search_title) {
 
     document.querySelector("#book-view").innerHTML = '';
     var n = 0;
 
     // USE THIS ONE TO LOOK FOR BOOK INFO !!!!!!!!!!!!!!!!!!!!!
     try {
-        const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${document.querySelector("#title").value}+intitle`);
+        const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${search_title}+intitle`);
         const data = await response.json();
         console.log(data);
 

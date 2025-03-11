@@ -1,52 +1,81 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    books();
+    books(true, false);
 
-    document.querySelector("#card-view").onclick = function() {
-        books();
+    document.querySelector("#classic-view").onclick = function() {
+        books(true, false);
     }
 
     document.querySelector("#shelf-view").onclick = function() {
-        books();
+        books(false, true);
     }
 
 })
 
-async function books() {
+async function books(classic, shelf) {
 
     try {
         let response = await fetch('/books_view');
         let data = await response.json();
-        console.log(data);
 
         const current = data.current_books;
         const read = data.read;
         const all = data.all_books;
         const notFinish = data.not_finish;
 
-        cardView(all);
-        changeClass('all-books', 'currently-reading', 'not-finish', 'read');
-
         // SHOULD PLACE THIS CODE ELSEWHERE !@!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        document.querySelector("#read").onclick = function() {
-            cardView(read);
-            changeClass('read', 'currently-reading', 'not-finish', 'all-books');
-        }
+        if (classic === true) {
 
-        document.querySelector("#all-books").onclick = function() {
-            cardView(all);
+            classicView(all);
             changeClass('all-books', 'currently-reading', 'not-finish', 'read');
+            switchView('classic-view', 'shelf-view');
+
+            document.querySelector("#read").onclick = function() {
+                classicView(read);
+                changeClass('read', 'currently-reading', 'not-finish', 'all-books');
+            }
+    
+            document.querySelector("#all-books").onclick = function() {
+                classicView(all);
+                changeClass('all-books', 'currently-reading', 'not-finish', 'read');
+            }
+    
+            document.querySelector("#currently-reading").onclick = function() {
+                classicView(current);
+                changeClass('currently-reading', 'not-finish', 'all-books', 'read');
+            }
+    
+            document.querySelector("#not-finish").onclick = function() {
+                classicView(notFinish);
+                changeClass('not-finish', 'read', 'currently-reading', 'all-books');
+            }  
+        } else if (shelf === true) {
+
+            shelfView(all);
+            changeClass('all-books', 'currently-reading', 'not-finish', 'read');
+            switchView('shelf-view', 'classic-view');
+
+            document.querySelector("#read").onclick = function() {
+                shelfView(read);
+                changeClass('read', 'currently-reading', 'not-finish', 'all-books');
+            }
+    
+            document.querySelector("#all-books").onclick = function() {
+                shelfView(all);
+                changeClass('all-books', 'currently-reading', 'not-finish', 'read');
+            }
+    
+            document.querySelector("#currently-reading").onclick = function() {
+                shelfView(current);
+                changeClass('currently-reading', 'not-finish', 'all-books', 'read');
+            }
+    
+            document.querySelector("#not-finish").onclick = function() {
+                shelfView(notFinish);
+                changeClass('not-finish', 'read', 'currently-reading', 'all-books');
+            }  
         }
 
-        document.querySelector("#currently-reading").onclick = function() {
-            cardView(current);
-            changeClass('currently-reading', 'not-finish', 'all-books', 'read');
-        }
-
-        document.querySelector("#not-finish").onclick = function() {
-            cardView(notFinish);
-            changeClass('not-finish', 'read', 'currently-reading', 'all-books');
-        }
 
     } catch (error) {
         console.error('Error fetchig data:', error);
@@ -54,13 +83,12 @@ async function books() {
 
 }
 
-function cardView(booksData) {
+function classicView(booksData) {
 
     document.querySelector("#library-view").innerHTML = '';
 
     if (booksData === undefined) {
 
-        console.log('!!!!');
         document.querySelector("#library-view").innerHTML = '<p class="mt-3">This list is empty</p>';
 
     } else {
