@@ -1,4 +1,5 @@
 import json
+import requests
 
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -274,12 +275,21 @@ def search_book(request):
         # Should repair this line !!!
         return JsonResponse({'message': 'Added to books!!'}, status=200)
     
-
     return render(request, 'my_app/search_book.html')
 
 def search_view(request, book_id):
 
     return render(request, 'my_app/search_view.html', {'book_id': book_id})
+
+def search_term(request, term):
+    url = f'https://www.googleapis.com/books/v1/volumes?q={term}+intitle'
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        return JsonResponse(data, safe=False) # safe=False allows returning a list
+    else:
+        return JsonResponse({'erro': 'Failed to fetch data'}, status=response.status_code)
 
 def add_to_library(request):
     if request.method == 'PUT':
