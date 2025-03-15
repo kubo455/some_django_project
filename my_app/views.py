@@ -278,7 +278,6 @@ def search_book(request):
     return render(request, 'my_app/search_book.html')
 
 def search_view(request, book_id):
-
     return render(request, 'my_app/search_view.html', {'book_id': book_id})
 
 def search_term(request, term):
@@ -290,6 +289,9 @@ def search_term(request, term):
         return JsonResponse(data, safe=False) # safe=False allows returning a list
     else:
         return JsonResponse({'erro': 'Failed to fetch data'}, status=response.status_code)
+    
+    # if request.method == 'POST':
+    #     return render(request, 'my_app/search_view.html')
 
 def add_to_library(request):
     if request.method == 'PUT':
