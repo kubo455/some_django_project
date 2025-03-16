@@ -6,16 +6,16 @@
 <div class="row mt-3" id="user-card">
     <div class="col">
         <div class="p-2 border rounded d-flex">
-            <div class="col-3 d-flex justify-content-center align-items-center p-2">
-                <img src="..." alt="user-picture">
+            <div class="col-lg-2 col-md-3 d-flex justify-content-start align-items-center p-2">
+                <img src="/media/media/default_picture.png" alt="user-picture">
             </div>
-            <div class="col-6 d-flex justify-content-start align-items-center p-2">
-                username<br>
-                some user info like:<br>
-                books read<br>
-                pages read
+            <div class="col-lg-6 col-md d-flex justify-content-start align-items-center p-2">
+                <div style="color: lavender;">{{ user.username }}<br>
+                user info:<br>
+                number of books<br>
+                pages read</div>
             </div>
-            <div class="col-3 d-flex justify-content-end align-items-start">
+            <div class="col-lg-4 col-md-3 d-flex justify-content-end align-items-start">
                 <button class="btn btn-primary mt-2" type="submit">Edit</button>
             </div>
         </div>
@@ -70,8 +70,37 @@
 
 
 <div class="row" id="user-stats">
-    <div class="p-3 d-flex justify-content-center">
-        <p>Your stats</p>
+    <div class="p-3 d-flex justify-content-start">
+        <h5>{{ user.username|capfirst }}'s Stats</h5>
+    </div>
+</div>
+
+<div class="row" id="user-goals">
+    <div class="p-3 d-flex justify-content-start">
+        <h5>{{ user.username|capfirst }}'s Goals</h5>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="p-3 border rounded">
+            <div class="row">
+                <div class="col d-flex justify-content-start">
+                    <small>Goal 0/10 books </small> 
+                    <small class="px-1 ms-auto">5%</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h6>This year's Goal</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <small>Read 10 book this year.</small>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
