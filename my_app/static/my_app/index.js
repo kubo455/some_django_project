@@ -104,46 +104,46 @@ function booksView() {
     .then(data => {
         const allBooks = data.all_books;
         
-        allBooks.forEach(book => {
-            const element = document.createElement('div');
-            // element.classList.add('col-3', 'p-3', 'rounded', 'd-flex');
-            element.classList.add('col-sm-12', 'col-md-6', 'col-lg-4', 'rounded', 'mt-3');
+        // allBooks.forEach(book => {
+        //     const element = document.createElement('div');
+        //     // element.classList.add('col-3', 'p-3', 'rounded', 'd-flex');
+        //     element.classList.add('col-sm-12', 'col-md-6', 'col-lg-4', 'rounded', 'mt-3');
 
-            var source = book.image;
+        //     var source = book.image;
 
-            if (book.image == '...') {
-                if (book.google_books_cover == "") {
-                    source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`;
-                } else {
-                    source = book.google_books_cover;
-                }
-            }
+        //     if (book.image == '...') {
+        //         if (book.google_books_cover == "") {
+        //             source = `https://covers.openlibrary.org/b/id/${book.open_lib_cover}-M.jpg`;
+        //         } else {
+        //             source = book.google_books_cover;
+        //         }
+        //     }
 
-            let bookTitle = book.title;
+        //     let bookTitle = book.title;
 
-            if (bookTitle.length >= 30) {
-                bookTitle = bookTitle.slice(0, 30) + '...';
-            }
+        //     if (bookTitle.length >= 30) {
+        //         bookTitle = bookTitle.slice(0, 30) + '...';
+        //     }
 
-            element.innerHTML = `<div class="rounded" id="custom-card">
-                                    <div class="row d-flex justify-content-start">
-                                        <div class="col col-md-4 d-flex justify-content-start">
-                                            <img src="${source}" id="img-all-books" class="img rounded" alt="image">
-                                        </div>
-                                        <div class="col d-flex justify-content-end align-items-end" id="all-books-info">
-                                            <h6 class="card-title mt-3" style="font-weight: 800;">${bookTitle}</><br>
-                                            <small class="text-muted">${book.author}</small>
-                                        </div>
-                                    </div>
-                                </div>`;
+        //     element.innerHTML = `<div class="rounded" id="custom-card">
+        //                             <div class="row d-flex justify-content-start">
+        //                                 <div class="col col-md-4 d-flex justify-content-start">
+        //                                     <img src="${source}" id="img-all-books" class="img rounded" alt="image">
+        //                                 </div>
+        //                                 <div class="col d-flex justify-content-end align-items-end" id="all-books-info">
+        //                                     <h6 class="card-title mt-3" style="font-weight: 800;">${bookTitle}</><br>
+        //                                     <small class="text-muted">${book.author}</small>
+        //                                 </div>
+        //                             </div>
+        //                         </div>`;
 
-            element.addEventListener('click', function() {
-                // This looks like better solution
-                window.location.href = `book_overview/${book.book_id}`;
-            })
+        //     element.addEventListener('click', function() {
+        //         // This looks like better solution
+        //         window.location.href = `book_overview/${book.book_id}`;
+        //     })
 
-            document.querySelector("#books").append(element);
-        })
+        //     document.querySelector("#books").append(element);
+        // })
 
         const currentBooks = data.current_books;
         const readBooks = data.read;
