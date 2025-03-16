@@ -29,7 +29,7 @@
                         <div class="navbar-nav ms-auto">
                             <form action="{% url 'search_book' %}" method="post" class="d-flex ms-auto me-2" role="search">
                                 {% csrf_token %}
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_term">
                                 <button class="btn btn-primary" type="submit">Submit</button>
                             </form>
                             <a class="nav-link active" href="{% url 'index' %}">Home</a>

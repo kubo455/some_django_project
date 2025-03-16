@@ -248,6 +248,10 @@ def track_progress(request):
 
 # Google Books API
 def search_book(request):
+    if request.method == 'POST':
+        search_term = request.POST.get('search_term')
+        return render(request, 'my_app/search_book.html', {'search_term': search_term})
+
     if request.method == 'PUT':
         data = json.loads(request.body)
         title = data.get('title')
@@ -279,19 +283,6 @@ def search_book(request):
 
 def search_view(request, book_id):
     return render(request, 'my_app/search_view.html', {'book_id': book_id})
-
-def search_term(request, term):
-    url = f'https://www.googleapis.com/books/v1/volumes?q={term}+intitle'
-    response = requests.get(url)
-
-    if response.status_code == 200:
-        data = response.json()
-        return JsonResponse(data, safe=False) # safe=False allows returning a list
-    else:
-        return JsonResponse({'erro': 'Failed to fetch data'}, status=response.status_code)
-    
-    # if request.method == 'POST':
-    #     return render(request, 'my_app/search_view.html')
 
 def add_to_library(request):
     if request.method == 'PUT':

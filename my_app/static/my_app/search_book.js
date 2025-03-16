@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
+    
+    if (document.querySelector('#search_term')) {
+        searchBook(document.querySelector("#search_term").value);
+    } else {
+        console.log('!!!!');
+    }
 
     document.querySelector('#search-book').onclick = function() {
         searchBook(document.querySelector("#title").value);
@@ -26,7 +32,6 @@ function getCookie(name) {
     return cookieValue;
 }
 const csrftoken = getCookie('csrftoken');
-
 
 // This function is using OpenLibrary API
 // function searchBook() {
